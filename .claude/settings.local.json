@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(find:*)",
-      "Bash(open index.html)"
+      "Bash(open index.html)",
+      "Bash(git remote:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

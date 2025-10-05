@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>土木水利工程师 | 专业简历</title>
+
+    <!-- SEO优化 -->
+    <meta name="description" content="土木水利工程专业人才，专注工程造价、施工管理与质量控制">
+    <meta name="keywords" content="土木工程,水利工程,工程造价,施工管理,BIM技术">
+
+    <!-- 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <!-- Three.js 和 OBJ/MTL加载器 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        :root {
+            /* 土木水利主题色彩系统 */
+            --primary-blue: #1e3a5f;      /* 深海蓝 - 主色调 */
+            --secondary-blue: #2c5282;    /* 建筑蓝 */
+            --accent-cyan: #00b4d8;       /* 水利青 */
+            --steel-gray: #64748b;        /* 钢铁灰 */
+            --concrete-gray: #94a3b8;     /* 混凝土灰 */
+            --blueprint-bg: #0f172a;      /* 图纸背景色 */
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+
+            /* 渐变色 */
+            --gradient-primary: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            --gradient-accent: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+            --gradient-mesh: radial-gradient(circle at 20% 50%, rgba(0, 180, 216, 0.1) 0%, transparent 50%),
+                             radial-gradient(circle at 80% 80%, rgba(30, 58, 95, 0.05) 0%, transparent 50%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景装饰 - 工程图纸网格 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 180, 216, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 180, 216, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #00b4d8;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '⚒';
+            font-size: 20px;
+            filter: invert(1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 主英雄区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 6rem 2rem 4rem;
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 180, 216, 0.1);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--accent-cyan);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #00b4d8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #cbd5e1;
+            border: 2px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(148, 163, 184, 0.1);
+            border-color: rgba(148, 163, 184, 0.5);
+        }
+
+        /* 个人头像展示 */
+        .hero-right {
+            position: relative;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        /* 3D建筑模型容器 */
+        .building-model-3d {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center,
+                rgba(0, 180, 216, 0.05) 0%,
+                transparent 70%);
+        }
+
+        .building-model-3d canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+        /* 删除了原有的头像相关样式和CSS建筑模型样式，已使用3D建筑模型替代 */
+
+        /* 个人信息部分 */
+        .personal-info-section {
+            padding: 5rem 2rem;
+            background: rgba(15, 23, 42, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .personal-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-list {
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item i {
+            width: 24px;
+            height: 24px;
+            color: var(--accent-cyan);
+        }
+
+        .info-label {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .personal-image-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .personal-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 3px solid rgba(0, 180, 216, 0.3);
+        }
+
+        .image-decoration {
+            position: absolute;
+            inset: -20px;
+            border: 2px solid rgba(0, 180, 216, 0.1);
+            border-radius: 20px;
+            transform: rotate(-5deg);
+            z-index: -1;
+        }
+
+        /* 教育背景部分 */
+        .education-section {
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .education-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .edu-school {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-major {
+            font-size: 1.125rem;
+            color: var(--accent-cyan);
+        }
+
+        .edu-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+        }
+
+        .edu-time i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .edu-courses h4 {
+            color: #e2e8f0;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-category h5 {
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+        }
+
+        .course-category ul {
+            list-style: none;
+        }
+
+        .course-category li {
+            color: #cbd5e1;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .course-category li::before {
+            content: '▪';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        /* 技能部分更新 */
+        .skills-section {
+            padding: 5rem 2rem;
+            background: rgba(15, 23, 42, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .skills-category {
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: #e2e8f0;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--accent-cyan);
+        }
+
+        .abilities-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .ability-item {
+            display: flex;
+            gap: 1rem;
+            background: rgba(30, 41, 59, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid rgba(0, 180, 216, 0.5);
+        }
+
+        .ability-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 36px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            color: white;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .ability-item p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .compound-skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .compound-skill-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .compound-skill-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.2);
+        }
+
+        .compound-skill-card h4 {
+            color: var(--accent-cyan);
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .compound-skill-card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* 个人评价部分 */
+        .evaluation-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.3) 0%, rgba(15, 23, 42, 0.5) 100%);
+            position: relative;
+            z-index: 2;
+        }
+
+        .evaluation-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .evaluation-content::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 4rem;
+            color: rgba(0, 180, 216, 0.3);
+            font-family: Georgia, serif;
+        }
+
+        .evaluation-content p {
+            color: #e2e8f0;
+            line-height: 1.8;
+            font-size: 1.125rem;
+            text-align: justify;
+        }
+
+        /* 技能部分 */
+        .skills-section {
+            padding: 5rem 2rem;
+            background: rgba(15, 23, 42, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 180, 216, 0.1);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #00b4d8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 180, 216, 0.2);
+            border-color: rgba(0, 180, 216, 0.4);
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+        }
+
+        .skill-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+
+        .skill-description {
+            color: #94a3b8;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 180, 216, 0.1);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: #00b4d8;
+        }
+
+        /* 项目经验部分 */
+        .projects-section {
+            padding: 5rem 2rem;
+            background: rgba(15, 23, 42, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 180, 216, 0.3);
+            border-color: rgba(0, 180, 216, 0.5);
+        }
+
+        .project-card::after {
+            content: '点击查看详情';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 180, 216, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background: #1e293b;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-header {
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .project-meta-item i {
+            width: 16px;
+            height: 16px;
+            color: var(--accent-cyan);
+        }
+
+        .project-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #cbd5e1;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-cyan);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        #modalProjectTitle {
+            font-size: 2rem;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        .modal-project-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-project-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+        }
+
+        .modal-project-info span::before {
+            content: attr(data-label);
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            max-height: calc(90vh - 150px);
+            /* 隐藏滚动条但保留滚动功能 */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        /* Chrome, Safari and Opera */
+        .modal-body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 流程导航栏 */
+        .process-nav {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1.5rem;
+            background: rgba(30, 41, 59, 0.2);
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        /* Chrome, Safari and Opera */
+        .process-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .process-nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-radius: 100px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .process-nav-btn:hover {
+            background: rgba(0, 180, 216, 0.1);
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+
+        .process-nav-btn.active {
+            background: var(--gradient-accent);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* 流程内容区域 */
+        .process-content {
+            padding: 2rem;
+        }
+
+        .process-item {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .process-item.active {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .process-image-container {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .process-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .process-text-content {
+            padding-left: 1rem;
+        }
+
+        .process-title {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-description {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-cyan);
+            margin-bottom: 2rem;
+        }
+
+        .process-description h4 {
+            color: #e2e8f0;
+            margin-bottom: 0.75rem;
+        }
+
+        .process-description p {
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .work-content {
+            background: rgba(30, 41, 59, 0.2);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .work-content h4 {
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        .work-content ol {
+            list-style: none;
+            counter-reset: work-counter;
+        }
+
+        .work-content li {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            counter-increment: work-counter;
+        }
+
+        .work-content li::before {
+            content: counter(work-counter);
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gradient-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* 联系部分 */
+        .contact-section {
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.2);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 180, 216, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--accent-cyan);
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* 页脚 */
+        .footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 180, 216, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-text {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        /* 动画 */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes rotate3d {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 流动水波效果 */
+        .water-effect {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 180, 216, 0.05) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .water-wave {
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 200%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(0,180,216,0.1)' fill-opacity='1' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,213.3C960,224,1056,192,1152,160C1248,128,1344,96,1392,80L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x;
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(50%);
+            }
+        }
+
+        /* 响应式设计 - 模态窗口 */
+        @media (max-width: 1024px) {
+            .process-item.active {
+                grid-template-columns: 1fr;
+            }
+
+            .process-image-container {
+                position: relative;
+                top: 0;
+            }
+
+            .process-image {
+                max-height: 300px;
+                margin-bottom: 1.5rem;
+            }
+
+            .process-text-content {
+                padding-left: 0;
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .personal-info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .personal-image-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .compound-skills {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .process-nav {
+                padding: 1rem;
+            }
+
+            .process-nav-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .modal-project-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .evaluation-content {
+                padding: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                <span>个人简历</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">首页</a></li>
+                <li><a href="#skills" class="nav-link">专业技能</a></li>
+                <li><a href="#projects" class="nav-link">项目经验</a></li>
+                <li><a href="#contact" class="nav-link">联系方式</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主英雄区域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <i data-lucide="award"></i>
+                    <span>葛荣景 | 工程造价专业</span>
+                </div>
+                <h1 class="hero-title">构建城市未来</h1>
+                <p class="hero-subtitle">土木水利工程专业人才</p>
+                <p class="hero-description">
+                    专注于工程造价控制、施工管理优化、质量安全保障。拥有丰富的高层建筑施工、暖通安装、质量检测、采购管理、物业运营经验，致力于推动智能建造与BIM技术在工程项目中的应用。
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i data-lucide="briefcase"></i>
+                        查看项目经验
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i data-lucide="mail"></i>
+                        联系我
+                    </a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div id="model-container" class="building-model-3d"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个人信息部分 -->
+    <section class="personal-info-section">
+        <div class="container">
+            <div class="personal-info-grid">
+                <div class="personal-left">
+                    <div class="section-header">
+                        <span class="section-tag">个人信息</span>
+                        <h2 class="section-title">基本资料</h2>
+                    </div>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <i data-lucide="user"></i>
+                            <span class="info-label">姓名：</span>
+                            <span class="info-value">葛荣景</span>
+                        </div>
+                        <div class="info-item">
+                            <i data-lucide="graduation-cap"></i>
+                            <span class="info-label">学历：</span>
+                            <span class="info-value">大专</span>
+                        </div>
+                        <div class="info-item">
+                            <i data-lucide="briefcase"></i>
+                            <span class="info-label">专业：</span>
+                            <span class="info-value">工程造价</span>
+                        </div>
+                        <div class="info-item">
+                            <i data-lucide="map-pin"></i>
+                            <span class="info-label">意向城市：</span>
+                            <span class="info-value">不限</span>
+                        </div>
+                        <div class="info-item">
+                            <i data-lucide="target"></i>
+                            <span class="info-label">求职意向：</span>
+                            <span class="info-value">工程造价员 / 施工管理</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="personal-right">
+                    <div class="personal-image-container">
+                        <img src="image (9).png" alt="葛荣景" class="personal-image">
+                        <div class="image-decoration"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育背景部分 -->
+    <section class="education-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">教育背景</span>
+                <h2 class="section-title">学习经历</h2>
+            </div>
+            <div class="education-card">
+                <div class="edu-header">
+                    <div class="edu-main">
+                        <h3 class="edu-school">安徽职业技术学院</h3>
+                        <p class="edu-major">工程造价专业</p>
+                    </div>
+                    <div class="edu-time">
+                        <i data-lucide="calendar"></i>
+                        <span>2019.09 - 2022.06</span>
+                    </div>
+                </div>
+                <div class="edu-courses">
+                    <h4>主修课程</h4>
+                    <div class="course-grid">
+                        <div class="course-category">
+                            <h5>专业核心课程</h5>
+                            <ul>
+                                <li>建筑工程计量与计价</li>
+                                <li>安装工程计量与计价</li>
+                                <li>工程造价管理</li>
+                                <li>工程招投标与合同管理</li>
+                                <li>工程经济学</li>
+                                <li>建设法规</li>
+                            </ul>
+                        </div>
+                        <div class="course-category">
+                            <h5>技术基础课程</h5>
+                            <ul>
+                                <li>建筑构造与识图</li>
+                                <li>建筑材料</li>
+                                <li>建筑力学与结构</li>
+                                <li>建筑CAD</li>
+                                <li>BIM技术应用</li>
+                                <li>建筑施工技术</li>
+                            </ul>
+                        </div>
+                        <div class="course-category">
+                            <h5>实践技能课程</h5>
+                            <ul>
+                                <li>广联达软件应用</li>
+                                <li>工程项目管理</li>
+                                <li>工程测量</li>
+                                <li>施工组织设计</li>
+                                <li>工程资料管理</li>
+                                <li>建筑信息化管理</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业技能部分 -->
+    <section class="skills-section" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">专业技能</span>
+                <h2 class="section-title">核心竞争力</h2>
+            </div>
+
+            <!-- 核心能力 -->
+            <div class="skills-category">
+                <h3 class="category-title">（一）核心能力</h3>
+                <div class="abilities-list">
+                    <div class="ability-item">
+                        <span class="ability-number">1</span>
+                        <p>能依据施工图、定额与清单计价规则完成常见专业的工程量清单编制与复核，在复核意见下完成修改与汇总。</p>
+                    </div>
+                    <div class="ability-item">
+                        <span class="ability-number">2</span>
+                        <p>能据材料、人工、机械等费用要素进行预算测算，建立费用台账并跟踪偏差，支持过程动态控制。</p>
+                    </div>
+                    <div class="ability-item">
+                        <span class="ability-number">3</span>
+                        <p>能解读招标文件与合同条款，识别典型经济风险点，协助编制清单/报价并核对商务条款。</p>
+                    </div>
+                    <div class="ability-item">
+                        <span class="ability-number">4</span>
+                        <p>了解进度款审核与竣工结算流程，能按流程整理签证、变更资料并配合结算审核。</p>
+                    </div>
+                    <div class="ability-item">
+                        <span class="ability-number">5</span>
+                        <p>具备市场价格信息收集与比对能力，能维护材料/设备/人工的单价依据。</p>
+                    </div>
+                    <div class="ability-item">
+                        <span class="ability-number">6</span>
+                        <p>会用广联达计量计价，能配合鲁班/算量完成工程量提取与造价分析，熟练用Excel做对比与图表汇报。</p>
+                    </div>
+                    <div class="ability-item">
+                        <span class="ability-number">7</span>
+                        <p>熟悉国家及地方取费标准与相关政策，能在指导下进行条文查核与套用。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 复合能力 -->
+            <div class="skills-category">
+                <h3 class="category-title">（二）复合能力</h3>
+                <div class="compound-skills">
+                    <div class="compound-skill-card">
+                        <h4>1. 工程管理意识</h4>
+                        <p>了解工程项目管理核心环节，包括工程造价估算与成本控制基础、招投标流程要点、施工进度计划（横道图/网络图）编制与监控方法、工程资料管理要求；具备初步的合同履约与风险防范意识。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>2. 全流程技术沟通</h4>
+                        <p>具备清晰理解项目需求（设计意图、规范要求、甲方诉求）并进行有效技术沟通的能力；能够与设计、施工、监理、供应商等多方进行顺畅协作，准确传达信息并推动问题解决；具备基础的工程报告撰写与汇报能力。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>3. 工程材料与建筑结构认知</h4>
+                        <p>熟悉常用建筑材料（混凝土、钢材、砌体、防水材料等）的物理力学性能、应用范围及质量控制要点；了解建筑结构体系（框架、剪力墙等）基本原理及受力特点。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>4. 施工技术基础能力</h4>
+                        <p>了解建筑工程主体结构（土方、基础、钢筋、模板、混凝土）及关键安装工程（水电、暖通）的主要施工工艺、技术要点及质量验收标准。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>5. 工程检测与质量控制</h4>
+                        <p>理解工程材料检测、施工过程质量监控及竣工验收的流程与规范；掌握常用检测仪器（如回弹仪、靠尺、水平仪等）的基础操作及关键参数（强度、平整度、垂直度等）的解读；具备初步的工程质量问题分析与预防意识。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>6. 设计制图应用能力</h4>
+                        <p>掌握建筑设计及室内设计基本流程与规范要求；熟练运用CAD软件进行工程图纸（建筑、结构、设备）识图、绘制与基础修改；具备使用3DMax/SketchUp等软件进行基础建筑模型创建与效果表达的能力。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>7. 土木行业认知</h4>
+                        <p>理解土木工程行业特性，熟悉行业主要规范标准体系与发展前景。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>8. 智能建造认知</h4>
+                        <p>关注并了解BIM技术在土木工程设计、施工、管理中的应用价值；认识智慧工地（如物联网监测、无人机测绘、信息化管理平台）及新型建造方式（如装配式建筑）的发展趋势与应用场景。</p>
+                    </div>
+                    <div class="compound-skill-card">
+                        <h4>9. 现场管理基础</h4>
+                        <p>具备基础施工现场问题识别与协调处理意识；理解施工组织设计/施工方案的核心内容。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目经验 -->
+    <section class="projects-section" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">项目经验</span>
+                <h2 class="section-title">工程实践案例</h2>
+            </div>
+            <div class="projects-grid" id="projectsGrid">
+                <!-- 项目卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目详情模态窗口 -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalProjectTitle"></h2>
+                <div class="modal-project-info">
+                    <span id="modalProjectCompany"></span>
+                    <span id="modalProjectDate"></span>
+                    <span id="modalProjectRole"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- 流程导航栏 -->
+                <div class="process-nav" id="processNav">
+                    <!-- 流程按钮将通过JavaScript动态生成 -->
+                </div>
+                <!-- 流程内容区域 -->
+                <div class="process-content" id="processContent">
+                    <!-- 流程内容将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人评价部分 -->
+    <section class="evaluation-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">个人评价</span>
+                <h2 class="section-title">自我总结</h2>
+            </div>
+            <div class="evaluation-content">
+                <p>
+                    我是一名刚完成实习的大专毕业生，主修工程造价。在"公路施工工程造价控制与管理项目"中，我参与了从预算与清单编制、招投标配合、变更签证到进度款审核与竣工结算准备的关键环节，逐步形成了对清单计价、成本动态控制与资料合规归档的系统认知。当前已能独立完成常规工程量与基础预算测算，并在前辈复核下完成条文校核与版本管理；同时具备与项目多方沟通的协作意识与执行力。后续希望在道路市政与房建造价方向持续进阶，提升全过程成本管控与数据化分析能力，尽快成长为稳定可靠的造价工程人员。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">联系方式</span>
+                <h2 class="section-title">与我联系</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i data-lucide="phone"></i>
+                    </div>
+                    <p class="contact-label">电话</p>
+                    <p class="contact-value">189-5174-6580</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i data-lucide="mail"></i>
+                    </div>
+                    <p class="contact-label">邮箱</p>
+                    <p class="contact-value">glaexysq@gmail.com</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i data-lucide="map-pin"></i>
+                    </div>
+                    <p class="contact-label">地址</p>
+                    <p class="contact-value">杭州市钱塘区</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i data-lucide="message-circle"></i>
+                    </div>
+                    <p class="contact-label">微信</p>
+                    <p class="contact-value">gerongjin0629</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p class="footer-text">© 2024 专业铸就品质，创新引领未来</p>
+    </footer>
+
+    <!-- 水波效果 -->
+    <div class="water-effect">
+        <div class="water-wave"></div>
+    </div>
+
+    <script>
+        // 项目数据
+        const projectsData = [
+            {
+                id: 1,
+                title: "北京某高层建筑核心筒工程施工项目",
+                company: "上海建工集团股份有限公司",
+                date: "2023.05 - 2024.09",
+                role: "土建施工员",
+                mainImage: "public/北京某高层建筑核心筒工程施工项目/北京某高层建筑核心筒工程施工项目-主图.jpeg",
+                description: "北京朝阳区200米高层建筑核心筒工程，12个月完成施工，轴线偏差≤3mm。采用标准化控制与信息化管理，确保施工精度与质量达标。",
+                processes: [
+                    {
+                        title: "流程一：施工测量放线",
+                        image: "public/北京某高层建筑核心筒工程施工项目/流程一：施工测量放线.jpeg",
+                        description: "施工测量放线是高层建筑核心筒施工的首要工序，土建施工员需在技术负责人的指导下，学习并参与全站仪与水准仪的操作，完成轴线定位和标高复核。这一环节直接关系到核心筒的精度控制和后续施工的可靠性，是施工员培养测量技能与施工认知的重要环节。",
+                        workContent: [
+                            "仪器学习与操作：在技术员指导下熟悉全站仪与水准仪的操作流程，独立完成仪器架设、调平与测角，逐步提升测量技能",
+                            "轴线放样：协助完成核心筒轴线定位，复核测点间距和坐标数据，确保偏差控制在规范范围内",
+                            "标高复核：记录各施工层标高点数据，与设计图纸对比并汇总，作为后续施工的基准参考",
+                            "测量记录整理：协助编制测量记录表与复核表，形成纸质与电子版存档，保证施工数据可追溯"
+                        ]
+                    },
+                    {
+                        title: "流程二：钢筋加工与绑扎",
+                        image: "public/北京某高层建筑核心筒工程施工项目/流程二：钢筋加工与绑扎.jpeg",
+                        description: "钢筋是核心筒的受力骨架，土建施工员主要负责现场钢筋施工的辅助与检查工作，包括协助钢筋班组进行下料绑扎记录、检查绑扎方式与接头位置，并监督保护层垫块布置是否到位，以确保施工质量符合图纸和规范。",
+                        workContent: [
+                            "下料与规格核查：协助记录钢筋加工下料数据，核对直径、长度与弯钩角度是否符合设计要求",
+                            "绑扎方式监督：观察并记录绑扎节点是否采用八字扣方式，检查绑扎间距与规范的一致性",
+                            "接头与搭接检查：对竖向筋焊接接头和水平筋搭接长度进行抽查，及时反馈异常",
+                            "保护层垫块检查：确认混凝土垫块布置位置，测量保护层厚度，确保钢筋防护符合要求"
+                        ]
+                    },
+                    {
+                        title: "流程三：模板安装与加固",
+                        image: "public/北京某高层建筑核心筒工程施工项目/流程三：模板安装与加固.jpeg",
+                        description: "模板安装直接影响混凝土成型效果，土建施工员需协助模板工完成模板拼装、加固及对拉螺栓布置的记录，并在混凝土浇筑前进行加固点与拼缝检查，保障模板在施工过程中的稳定性和安全性。",
+                        workContent: [
+                            "模板拼装辅助：参与模板工安装，记录模板平整度和拼缝数据，确保符合质量标准",
+                            "加固点检查：核对对拉螺栓的间距与布置情况，检查局部加固是否到位",
+                            "拼缝复核：使用塞尺检查拼缝宽度，避免浇筑时漏浆现象",
+                            "模板记录归档：协助填写模板安装检查表，整理安装偏差数据，便于质检复核"
+                        ]
+                    },
+                    {
+                        title: "流程四：混凝土浇筑与养护",
+                        image: "public/北京某高层建筑核心筒工程施工项目/流程四：混凝土浇筑与养护.jpeg",
+                        description: "混凝土浇筑是核心筒施工的关键环节，土建施工员主要协助浇筑现场巡视，学习泵送与分层振捣工艺，检查坍落度、分层厚度与振捣密实度，并参与养护措施记录，确保施工过程与质量受控。",
+                        workContent: [
+                            "现场巡视：在浇筑过程中协助检查施工缝位置、分层厚度及泵送管布置",
+                            "坍落度检测：参与坍落度取样与检测，记录数值并与设计要求比对",
+                            "振捣工艺学习：观察插入式振动棒的操作方式，协助记录振捣时间与密实度情况",
+                            "养护措施检查：跟随师傅确认覆盖物、洒水养护频次是否符合养护规范，并记录养护日志"
+                        ]
+                    },
+                    {
+                        title: "流程五：质量与安全巡查",
+                        image: "public/北京某高层建筑核心筒工程施工项目/流程五：质量与安全巡查.jpeg",
+                        description: "质量与安全控制是土建施工员的常规职责之一，需协助工程师对隐蔽工程进行检查与记录，监督现场安全防护措施落实情况，并整理质量检测数据，确保施工过程安全可控、质量可追溯。",
+                        workContent: [
+                            "隐蔽工程验收：协助拍照、标注钢筋、模板等隐蔽部位，形成检查记录",
+                            "安全防护检查：巡视施工现场，确认防护栏杆、安全网与临边措施到位",
+                            "施工日志整理：协助整理钢筋复试报告、坍落度检测表及施工检查记录",
+                            "异常情况反馈：对现场发现的安全隐患及时汇报，记录整改过程并归档"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "某高层建筑空调安装施工项目",
+                company: "黑龙江省寒地建工有限公司",
+                date: "2023.06 - 2023.09",
+                role: "设备安装工程师",
+                mainImage: "public/某高层建筑空调安装施工项目/高层建筑空调安装-总图.webp",
+                description: "高层建筑暖通空调系统安装调试项目，包含设备检验、管道施工、设备安装调试及验收交付。目标实现高效节能的空调运行环境。",
+                processes: [
+                    {
+                        title: "流程一：图纸会审与技术交底",
+                        image: "public/某高层建筑空调安装施工项目/流程一：图纸会审与技术交底.jpg",
+                        description: "在施工前参与图纸会审和技术、安全交底，确保风管、水管及设备布置与建筑结构匹配，减少后期施工冲突。",
+                        workContent: [
+                            "协助核对风管、水管与电气、排水系统交叉点，提出潜在冲突记录",
+                            "参与设备基础尺寸与位置确认，整理校对表供施工班组参考",
+                            "协助技术负责人进行施工与安全交底，整理施工顺序与质量标准文件",
+                            "整理形成会审纪要与交底记录，作为后续施工和验收依据"
+                        ]
+                    },
+                    {
+                        title: "流程二：材料与设备进场检验",
+                        image: "public/某高层建筑空调安装施工项目/流程二：材料与设备进场检验.jfif",
+                        description: "在设备进场阶段，完成开箱检验、台账登记及分类堆放，确保设备与材料符合设计和施工要求。",
+                        workContent: [
+                            "协助检验空调机组、冷却塔、风机盘管等设备型号与参数",
+                            "检查风管镀锌钢板厚度与外观质量，整理检验报告",
+                            "协助核对水管合格证与焊口情况，确保管道符合质量标准",
+                            "完成设备台账登记，记录进场日期、型号与供应商信息",
+                            "指导分类堆放，落实防潮防晒措施，避免因存放不当造成损坏"
+                        ]
+                    },
+                    {
+                        title: "流程三：施工放线与支吊架安装",
+                        image: "public/某高层建筑空调安装施工项目/流程三：施工放线与支吊架安装.jpg",
+                        description: "在主体完成后，协助放线并完成支吊架安装，确保后续风管、水管施工的精度与稳定性。",
+                        workContent: [
+                            "使用激光水平仪辅助施工班组完成风管、水管的精确放线",
+                            "协助布置风管支架，检查间距是否满足2.5m/3m标准",
+                            "对支吊架固定进行核查，确认膨胀螺栓或预埋件牢固性",
+                            "协助检查支吊架与电缆桥架、喷淋系统的空间关系",
+                            "整理监理验收记录，形成支吊架安装质量确认单"
+                        ]
+                    },
+                    {
+                        title: "流程四：风管系统施工",
+                        image: "public/某高层建筑空调安装施工项目/流程四：风管系统施工.jfif",
+                        description: "在支吊架合格后，参与风管的加工、安装与检测，确保系统密封性与节能性能。",
+                        workContent: [
+                            "协助下料与风管加工，确认板材厚度符合设计规范",
+                            "参与主管到支管的顺序安装，检查法兰接口密封性",
+                            "协助进行漏风检测，整理测试数据并提交监理审核",
+                            "配合完成风管保温施工，确保冷量损耗在标准范围内"
+                        ]
+                    },
+                    {
+                        title: "流程五：水系统管道施工",
+                        image: "public/某高层建筑空调安装施工项目/流程五：水系统管道施工.jfif",
+                        description: "协助施工冷冻水、冷却水管道的安装，完成压力测试和防腐处理，确保系统耐久性与密封性。",
+                        workContent: [
+                            "协助进行焊接、法兰与沟槽连接，检查接头严密性",
+                            "协助调整管道坡度，保证排气与排水功能",
+                            "核对阀门方向与垫片安装情况，确保水流顺畅",
+                            "参与水压试验，记录压力稳定情况，确保无泄漏",
+                            "协助完成管道防锈漆与防火涂料施工，记录施工情况"
+                        ]
+                    },
+                    {
+                        title: "流程六：设备基础施工与安装",
+                        image: "public/某高层建筑空调安装施工项目/流程六：设备基础施工与安装.jpg",
+                        description: "在冷机、冷却塔等设备安装过程中，协助完成基础复核、吊装与找正，确保设备稳固运行。",
+                        workContent: [
+                            "协助核对设备基础尺寸与标高，确认预埋件位置",
+                            "参与设备吊装，完成试吊与重心检查",
+                            "协助设备找平找正，使用水平仪复核安装精度",
+                            "协助完成二次灌浆或地脚螺栓固定，并检查紧固效果",
+                            "配合附件安装（电机、联轴器、减震器），检查安装到位情况"
+                        ]
+                    },
+                    {
+                        title: "流程七：系统保温与防腐",
+                        image: "public/某高层建筑空调安装施工项目/流程七：系统保温与防腐.jpg",
+                        description: "完成风管与管道的保温及防腐处理，提升系统的节能效果与使用寿命。",
+                        workContent: [
+                            "协助冷冻水管与热水管保温施工，确认厚度≥30mm/50mm标准",
+                            "检查保温层接缝，确保粘接紧密无空隙",
+                            "协助风管与管道表面防锈漆、防火涂料施工",
+                            "记录保温与防腐完成情况，整理节能检测资料"
+                        ]
+                    },
+                    {
+                        title: "流程八：单机试运转",
+                        image: "public/某高层建筑空调安装施工项目/流程八：单机试运转.jpeg",
+                        description: "在系统调试前，参与单机试运转，确保设备独立运行稳定，为后续系统联调打下基础。",
+                        workContent: [
+                            "协助执行单机试运转，运行时间不少于2小时",
+                            "检查电机电流、电压、噪音与振动情况，整理运行记录",
+                            "协助检查联轴器与接口处是否有异常",
+                            "整理试运转数据，归档至调试资料"
+                        ]
+                    },
+                    {
+                        title: "流程九：系统调试与联合试运行",
+                        image: "public/某高层建筑空调安装施工项目/流程九：系统调试与联合试运行.webp",
+                        description: "在单机调试合格后，协助进行风、水、控制系统的联合调试，确保系统整体稳定运行。",
+                        workContent: [
+                            "协助风量测量与风速调节，保证风口误差≤10%",
+                            "参与水系统流量平衡调试，检查各支路水量均衡性",
+                            "协助检查传感器、阀门等控制系统动作是否灵敏",
+                            "参与设备间联动测试，确保整体系统稳定运行",
+                            "整理调试过程记录，形成系统调试报告初稿"
+                        ]
+                    },
+                    {
+                        title: "流程十：竣工验收与资料交付",
+                        image: "public/某高层建筑空调安装施工项目/流程十：竣工验收与资料交付.jpg",
+                        description: "在系统完成后，协助进行竣工验收，提交相关资料并完成项目交付。",
+                        workContent: [
+                            "协助准备竣工验收资料，包括调试报告、设备合格证、竣工图纸等",
+                            "参与系统性能检测，确认风量、水量、能效均达标",
+                            "整理验收会议记录，协助完成交接手续",
+                            "归档竣工资料，确保后期运行维护可追溯"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "前海嘉里建设广场高层建筑主体结构实体质量检测项目",
+                company: "成都双流民鑫建设工程监理有限公司",
+                date: "2023.05 - 2024.09",
+                role: "建筑检测工程师",
+                mainImage: "public/前海嘉里建设广场高层建筑主体结构实体质量检测项目/前海嘉里建设广场高层建筑主体结构实体质量检测项目-主图.jpg",
+                description: "前海嘉里建设广场结构质量检测项目，建筑面积14万㎡。采用回弹取芯、钢筋扫描、非破损测厚等技术，全面评估混凝土强度、钢筋保护层及楼板厚度。",
+                processes: [
+                    {
+                        title: "流程一：制定检测准备方案",
+                        image: "public/前海嘉里建设广场高层建筑主体结构实体质量检测项目/流程一：制定检测准备方案.jpeg",
+                        description: "在检测工作开展前，协助工程师完成检测依据整理、检测计划初稿拟定以及设备准备和现场条件核查，保证后续实测过程顺利开展。",
+                        workContent: [
+                            "检测规范整理：协助查阅《混凝土结构工程施工质量验收规范》《建筑结构检测技术标准》",
+                            "设备校准与检查：在工程师指导下完成数字回弹仪、钢筋扫描仪等设备校准测试",
+                            "现场条件确认：参与对检测区域脚手架、防护栏杆等进行安全核查",
+                            "人员资质核查：协助收集检测人员上岗证与资格证明文件，并整理归档"
+                        ]
+                    },
+                    {
+                        title: "流程二：混凝土强度检测",
+                        image: "public/前海嘉里建设广场高层建筑主体结构实体质量检测项目/流程二：混凝土强度检测.jpeg",
+                        description: "在工程师指导下参与混凝土回弹检测与钻芯取样，协助完成点位标记、回弹值记录与芯样编号，确保数据完整、可追溯。",
+                        workContent: [
+                            "测点布置与标记：根据图纸与检测计划，协助工程师在梁、柱、板上进行测点划分和编号标记",
+                            "回弹值记录：在回弹仪检测过程中，实时记录测区数据，并检查数值异常点",
+                            "芯样编号与整理：协助完成钻芯样品编号、密封与运输登记",
+                            "数据录入与初步汇总：将现场检测数据录入表格，并进行初步分类整理"
+                        ]
+                    },
+                    {
+                        title: "流程三：钢筋保护层厚度检测",
+                        image: "public/前海嘉里建设广场高层建筑主体结构实体质量检测项目/流程三：钢筋保护层厚度检测.jpeg",
+                        description: "协助开展钢筋保护层厚度检测，操作与维护钢筋扫描仪，完成测点数据采集与结果记录，支持结构耐久性和安全性的评估。",
+                        workContent: [
+                            "测点布设：在梁、板类构件上划定检测点位，确保抽检比例符合规范要求",
+                            "数据采集：在指导下操作钢筋扫描仪，采集构件钢筋保护层厚度数据并记录",
+                            "现场照片记录：负责现场检测点位的拍照留存，确保数据有图像支撑",
+                            "异常点标注：对超出规范偏差的检测点进行标记，并向工程师反馈"
+                        ]
+                    },
+                    {
+                        title: "流程四：楼板厚度检测",
+                        image: "public/前海嘉里建设广场高层建筑主体结构实体质量检测项目/流程四：楼板厚度检测.jpeg",
+                        description: "参与楼板厚度非破损检测，协助测厚仪操作，完成点位布置、数值记录和数据整理，保证检测数据与施工图纸一致性。",
+                        workContent: [
+                            "点位划定：在普通楼板与悬挑板上，按规范方法划定检测点位并编号",
+                            "测厚仪协作操作：在工程师指导下，辅助使用测厚仪进行厚度测量",
+                            "数据核对：将检测数值与设计图纸厚度要求进行初步比对",
+                            "检测数据归档：整理检测原始记录表格与影像资料，归档为阶段性检测文件"
+                        ]
+                    },
+                    {
+                        title: "流程五：质量安全与现场管理",
+                        image: "public/前海嘉里建设广场高层建筑主体结构实体质量检测项目/流程五：质量安全与现场管理.jpeg",
+                        description: "在检测过程中配合完成现场安全布设与作业记录填写，确保检测人员、设备与施工环境均符合安全规范。",
+                        workContent: [
+                            "安全标识布设：协助布置检测区域的警示标识，确保检测过程安全",
+                            "防护措施检查：检查现场安全帽、安全带等个人防护用品的使用情况",
+                            "安全日志填写：参与填写日常安全作业记录表，确保检测过程具备书面安全依据",
+                            "异常情况上报：若检测现场出现强度不足或安全隐患，及时报告工程师"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "五金材料工程采购与投标管理项目",
+                company: "上海凡新建筑设备有限公司",
+                date: "2023.05 - 2024.09",
+                role: "采购工程师",
+                mainImage: "public/五金材料工程采购与投标管理项目/五金材料工程采购与投标管理项目-主图.png",
+                description: "五金材料工程采购与投标管理项目，构建涵盖投标、比价、采购及供应链协同的全流程体系。遵循「公开、公平、公正」原则，实现成本优化与进度控制。",
+                processes: [
+                    {
+                        title: "流程一：市场调研与需求分析",
+                        image: "public/五金材料工程采购与投标管理项目/流程一：市场调研与需求分析.jpeg",
+                        description: "在采购启动阶段，作为采购助理主要协助完成市场价格信息的收集与对比，结合项目进度整理阶段性需求表。",
+                        workContent: [
+                            "价格信息收集：检索近3-6个月钢材、螺栓、管件等五金材料的市场行情",
+                            "数据对比与整理：编制材料价格对比表，标注出价格波动明显的品类",
+                            "需求清单协助：根据施工进度与BOM清单，整理阶段性材料需求",
+                            "行业标准查阅：检索GB/T等相关标准文件，整理常用五金材料的合格判定指标"
+                        ]
+                    },
+                    {
+                        title: "流程二：供应商资格预审与资料整理",
+                        image: "public/五金材料工程采购与投标管理项目/流程二：供应商资格预审与资料整理.jpg",
+                        description: "在供应商筛选阶段，主要负责核查供应商的合规文件与基础信息，并完成标准化录入与归档。",
+                        workContent: [
+                            "资质文件核查：检查供应商营业执照、ISO质量体系认证等证件",
+                            "信息录入归档：将供应商基础信息、联系方式、历史供货记录录入ERP系统",
+                            "合规检查辅助：比对招标文件中的准入要求，标注不符合项",
+                            "供应商资料维护：协助更新供应商数据库，确保后续投标评审阶段信息准确"
+                        ]
+                    },
+                    {
+                        title: "流程三：投标文件编制与成本数据录入",
+                        image: "public/五金材料工程采购与投标管理项目/流程三：投标文件编制与成本数据录入.png",
+                        description: "在标书编制阶段，参与投标文件的整理与基础部分的编制工作，协助完成成本数据录入与初步核算。",
+                        workContent: [
+                            "文档整理：协助编制投标文件目录页、附件清单，确保文档结构清晰",
+                            "技术条款汇总：将招标文件中涉及的主要技术要求分类整理",
+                            "成本数据录入：在Excel中录入原材料、运输等基础成本数据",
+                            "文件排版校对：检查标书排版、格式一致性，避免因形式问题影响投标质量"
+                        ]
+                    },
+                    {
+                        title: "流程四：评标准备与谈判支持",
+                        image: "public/五金材料工程采购与投标管理项目/流程四：评标准备与谈判支持.png",
+                        description: "在评标与谈判阶段，协助团队整理评审用表格与数据，并记录谈判要点，保证整个评审过程有序推进。",
+                        workContent: [
+                            "评分表准备：制作投标评分表，填入供应商报价、交货周期等关键数据",
+                            "数据对比：将多家供应商的报价与技术方案进行横向对比",
+                            "谈判会议记录：记录价格、交货条款等关键谈判内容，形成会议纪要",
+                            "文件归档支持：整理评审资料与谈判记录，分类存入共享文件夹"
+                        ]
+                    },
+                    {
+                        title: "流程五：合同执行与到货跟进",
+                        image: "public/五金材料工程采购与投标管理项目/流程五：合同执行与到货跟进.jpeg",
+                        description: "在合同执行阶段，协助跟踪供应商交付进度，整理到货检验数据，并在ERP中更新采购订单执行情况。",
+                        workContent: [
+                            "进度跟踪：根据合同交付计划，联系供应商确认生产与发货进度",
+                            "到货检验记录：整理现场到货的质检单与验收报告",
+                            "ERP系统更新：在ERP中录入订单收货信息与付款进度",
+                            "文档归档：协助归档合同执行相关文件，包括到货单、质检报告与付款凭证"
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "住宅社区运营与设备维保优化项目",
+                company: "招商楼宇科技（深圳）有限公司",
+                date: "2023.05 - 2024.09",
+                role: "物业经理",
+                mainImage: "public/住宅社区运营与设备维保优化项目/住宅社区运营与设备维保优化项目-主图.png",
+                description: "住宅社区运营与设备维保优化项目，涵盖客户服务、安防、工程维保、消防管理等模块。目标：投诉48小时闭环、客户满意度≥90%、绿化质量合格率≥95%。",
+                processes: [
+                    {
+                        title: "流程一：日常巡检与运营统筹",
+                        image: "public/住宅社区运营与设备维保优化项目/流程一：日常巡检与运营统筹.jpg",
+                        description: "在社区运营的日常管理中，主要参与公共区域巡检、值班排班与问题记录，协助形成日报、周报与月报。",
+                        workContent: [
+                            "值班与排班辅助：协助整理安保与保洁团队的值班排班表",
+                            "日常巡检记录：使用巡检App完成楼栋公共区域环境、设备运行状态的巡查",
+                            "问题工单提交：对发现的保洁不达标、秩序疏漏等情况，及时生成工单",
+                            "报表编制：将日常巡检结果汇总成日报、周报，形成趋势对比"
+                        ]
+                    },
+                    {
+                        title: "流程二：服务外包质控",
+                        image: "public/住宅社区运营与设备维保优化项目/流程二：服务外包质控.jpg",
+                        description: "在保洁、安防与绿化外包团队管理中，协助完成SLA响应时间、人员到岗率与服务质量的抽检。",
+                        workContent: [
+                            "人员到岗检查：对保洁与秩序维护外包人员进行现场抽查",
+                            "服务质量抽检：根据物业标准，对保洁卫生死角、绿化修剪效果进行照片留痕",
+                            "响应时效统计：记录外包团队处理工单的响应时间，形成SLA考核清单",
+                            "改进通报整理：将抽检问题、整改措施与改进结果整理为质检通报"
+                        ]
+                    },
+                    {
+                        title: "流程三：物业费测算与收费跟进",
+                        image: "public/住宅社区运营与设备维保优化项目/流程三：物业费测算与收费跟进.jpg",
+                        description: "在物业费收缴管理环节，主要参与应收与实收台账的核对，协助编制收费进度报表。",
+                        workContent: [
+                            "台账核对：根据楼栋清单逐一核对业主应收与实收物业费",
+                            "Excel分摊复核：利用Excel函数对费用分摊口径进行验证",
+                            "收费进度周报：协助编制收费进度周报，标注欠费业主名单",
+                            "账期管理支持：根据台账数据，提醒账期临近的未缴业主"
+                        ]
+                    },
+                    {
+                        title: "流程四：业主投诉与报修闭环管理",
+                        image: "public/住宅社区运营与设备维保优化项目/流程四：业主投诉与报修闭环管理.gif",
+                        description: "在客户服务环节，协助建立「登记—派单—回访—闭环」的处理链路，参与话术整理与问题复盘。",
+                        workContent: [
+                            "投诉登记：受理业主关于电梯、环境或服务的投诉，分类登记并录入系统",
+                            "工单派发：根据紧急程度设置响应等级，及时派单至工程部或外包团队",
+                            "回访记录：在问题处理完成后电话回访业主，确认满意度并记录反馈",
+                            "高频问题复盘：统计重复率较高的问题，形成改进建议报告"
+                        ]
+                    },
+                    {
+                        title: "流程五：设备设施维保与应急协作",
+                        image: "public/住宅社区运营与设备维保优化项目/流程五：设备设施维保与应急协作.jpg",
+                        description: "在工程与消防管理环节，主要负责维保台账的整理、第三方维保进场记录与演练复盘。",
+                        workContent: [
+                            "设备巡检台账：配合工程部对电梯、消防水泵、供配电等系统巡检记录进行整理",
+                            "维保计划跟进：跟踪第三方维保公司的进场计划与验收资料",
+                            "隐患整改跟进：协助督促问题整改，更新复检结果，形成闭环",
+                            "消防演练支持：参与小区消防与应急演练，记录演练过程，整理复盘要点"
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // 生成项目卡片
+        function generateProjectCards() {
+            const projectsGrid = document.getElementById('projectsGrid');
+            if (!projectsGrid) {
+                console.error('Projects grid not found');
+                return;
+            }
+
+            projectsData.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.onclick = () => openProjectModal(project);
+
+                card.innerHTML = `
+                    <div class="project-image">
+                        <img src="${project.mainImage}" alt="${project.title}" onerror="this.style.display='none'">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">${project.title}</h3>
+                        </div>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <i data-lucide="building-2">🏢</i>
+                                <span>${project.company}</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <i data-lucide="calendar">📅</i>
+                                <span>${project.date}</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <i data-lucide="user">👤</i>
+                                <span>${project.role}</span>
+                            </div>
+                        </div>
+                        <p class="project-description">${project.description}</p>
+                    </div>
+                `;
+
+                projectsGrid.appendChild(card);
+            });
+
+            // 尝试初始化Lucide图标（如果可用）
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // 打开项目模态窗口
+        function openProjectModal(project) {
+            const modal = document.getElementById('projectModal');
+            const modalTitle = document.getElementById('modalProjectTitle');
+            const modalCompany = document.getElementById('modalProjectCompany');
+            const modalDate = document.getElementById('modalProjectDate');
+            const modalRole = document.getElementById('modalProjectRole');
+            const processNav = document.getElementById('processNav');
+            const processContent = document.getElementById('processContent');
+
+            // 设置项目基本信息
+            modalTitle.textContent = project.title;
+            modalCompany.innerHTML = `<span data-label="企业: ">${project.company}</span>`;
+            modalDate.innerHTML = `<span data-label="时间: ">${project.date}</span>`;
+            modalRole.innerHTML = `<span data-label="岗位: ">${project.role}</span>`;
+
+            // 生成流程导航按钮
+            processNav.innerHTML = '';
+            processContent.innerHTML = '';
+
+            project.processes.forEach((process, index) => {
+                // 创建导航按钮
+                const navBtn = document.createElement('button');
+                navBtn.className = 'process-nav-btn';
+                navBtn.textContent = process.title;
+                navBtn.onclick = () => showProcess(index);
+                if (index === 0) navBtn.classList.add('active');
+                processNav.appendChild(navBtn);
+
+                // 创建流程内容
+                const processItem = document.createElement('div');
+                processItem.className = 'process-item';
+                if (index === 0) processItem.classList.add('active');
+                processItem.id = `process-${index}`;
+
+                processItem.innerHTML = `
+                    <div class="process-image-container">
+                        <img src="${process.image}" alt="${process.title}" class="process-image" onerror="this.style.display='none'">
+                    </div>
+                    <div class="process-text-content">
+                        <h3 class="process-title">${process.title}</h3>
+                        <div class="process-description">
+                            <h4>流程描述</h4>
+                            <p>${process.description}</p>
+                        </div>
+                        <div class="work-content">
+                            <h4>工作内容</h4>
+                            <ol>
+                                ${process.workContent.map(item => `<li>${item}</li>`).join('')}
+                            </ol>
+                        </div>
+                    </div>
+                `;
+
+                processContent.appendChild(processItem);
+            });
+
+            modal.classList.add('active');
+            // 阻止外部页面滚动
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 显示指定流程
+        function showProcess(index) {
+            // 更新导航按钮状态
+            document.querySelectorAll('.process-nav-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            // 更新流程内容显示
+            document.querySelectorAll('.process-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        // 关闭模态窗口
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('active');
+            // 恢复外部页面滚动
+            document.body.style.overflow = '';
+        }
+
+        document.querySelector('.close-modal').onclick = closeModal;
+
+        // 点击模态窗口外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // ESC键关闭模态窗口
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('projectModal');
+                if (modal.classList.contains('active')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // 横向导航栏鼠标滚轮左右滚动功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const processNav = document.getElementById('processNav');
+            if (processNav) {
+                processNav.addEventListener('wheel', function(e) {
+                    e.preventDefault();
+                    // 水平滚动：向上滚动时向左滚动，向下滚动时向右滚动
+                    this.scrollLeft += e.deltaY * 2;
+                });
+            }
+        });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 生成项目卡片
+            generateProjectCards();
+
+            // 初始化Lucide图标
+            lucide.createIcons();
+
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // 滚动动画
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // 观察所有卡片元素
+            document.querySelectorAll('.skill-card, .contact-card').forEach(el => {
+                observer.observe(el);
+            });
+
+            // 初始化3D建筑模型
+            init3DModel();
+        });
+
+        // 3D建筑模型初始化函数
+        function init3DModel() {
+            const container = document.getElementById('model-container');
+            if (!container) return;
+
+            // 创建场景、相机和渲染器
+            const scene = new THREE.Scene();
+            scene.background = null; // 透明背景
+
+            const camera = new THREE.PerspectiveCamera(
+                35,
+                container.clientWidth / container.clientHeight,
+                0.1,
+                1000
+            );
+            camera.position.set(120, 80, 120);
+            camera.lookAt(0, 30, 0);
+
+            const renderer = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: true // 启用透明背景
+            });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 0.8;
+            container.appendChild(renderer.domElement);
+
+            // 添加环境光
+            const ambientLight = new THREE.AmbientLight(0x00b4d8, 0.5);
+            scene.add(ambientLight);
+
+            // 添加主光源
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(50, 100, 50);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.camera.near = 0.1;
+            directionalLight.shadow.camera.far = 200;
+            directionalLight.shadow.camera.left = -50;
+            directionalLight.shadow.camera.right = 50;
+            directionalLight.shadow.camera.top = 50;
+            directionalLight.shadow.camera.bottom = -50;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            scene.add(directionalLight);
+
+            // 添加补光
+            const fillLight = new THREE.DirectionalLight(0x00b4d8, 0.3);
+            fillLight.position.set(-50, 50, -50);
+            scene.add(fillLight);
+
+            // 添加轨道控制器
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.5;
+            controls.enableZoom = false;
+            controls.enablePan = false;
+            controls.maxPolarAngle = Math.PI / 2.2;
+            controls.minPolarAngle = Math.PI / 6;
+
+            // 加载建筑模型
+            const mtlLoader = new THREE.MTLLoader();
+            const objLoader = new THREE.OBJLoader();
+
+            // 加载建筑模型
+            mtlLoader.load('建筑模型/building_04.mtl', function(materials) {
+                materials.preload();
+
+                objLoader.setMaterials(materials);
+                objLoader.load('建筑模型/building_04.obj', function(object) {
+                    // 调整模型大小和位置 - 放大8倍
+                    object.scale.set(8, 8, 8);
+                    object.position.set(0, 0, 0);
+
+                    // 为模型添加效果
+                    object.traverse(function(child) {
+                        if (child instanceof THREE.Mesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+
+                            // 根据材质名称调整效果
+                            if (child.material && child.material.name) {
+                                switch(child.material.name) {
+                                    case 'window_glass':
+                                        // 窗户玻璃 - 半透明发光效果
+                                        child.material.transparent = true;
+                                        child.material.opacity = 0.8;
+                                        child.material.emissive = new THREE.Color(0x00ccff);
+                                        child.material.emissiveIntensity = 0.3;
+                                        child.material.side = THREE.DoubleSide;
+                                        break;
+
+                                    case 'metal_grey':
+                                        // 金属材质
+                                        child.material.metalness = 0.8;
+                                        child.material.roughness = 0.2;
+                                        child.material.color = new THREE.Color(0x4a5568);
+                                        break;
+
+                                    case 'plaster_white':
+                                    case 'plaster_grey':
+                                        // 石膏/墙面材质
+                                        child.material.color = new THREE.Color(0xe2e8f0);
+                                        child.material.emissive = new THREE.Color(0x1e3a5f);
+                                        child.material.emissiveIntensity = 0.1;
+                                        break;
+
+                                    case 'wood_brown':
+                                    case 'wood_balls_brown':
+                                        // 木材材质
+                                        child.material.color = new THREE.Color(0x8b4513);
+                                        child.material.roughness = 0.8;
+                                        break;
+
+                                    case 'foundation_grey_brick':
+                                        // 基础/砖材质
+                                        child.material.color = new THREE.Color(0x64748b);
+                                        child.material.roughness = 0.9;
+                                        break;
+
+                                    default:
+                                        // 默认材质调整
+                                        child.material.color = new THREE.Color(0x94a3b8);
+                                }
+                            }
+                        }
+                    });
+
+                    scene.add(object);
+                    console.log('建筑模型加载成功');
+
+                    // 添加建筑周围的装饰光源
+                    const buildingLight1 = new THREE.PointLight(0x00b4d8, 0.8, 150);
+                    buildingLight1.position.set(80, 120, 80);
+                    scene.add(buildingLight1);
+
+                    const buildingLight2 = new THREE.PointLight(0x00b4d8, 0.8, 150);
+                    buildingLight2.position.set(-80, 120, -80);
+                    scene.add(buildingLight2);
+                },
+                // 加载进度
+                function(xhr) {
+                    const percentComplete = xhr.loaded / xhr.total * 100;
+                    console.log(`加载进度: ${Math.round(percentComplete)}%`);
+                },
+                // 错误处理
+                function(error) {
+                    console.error('加载建筑模型失败:', error);
+                    // 如果加载失败，使用不加载材质的方式
+                    loadOBJWithoutMaterial();
+                });
+            },
+            // MTL加载进度
+            function(xhr) {
+                console.log('材质加载中...');
+            },
+            // MTL错误处理
+            function(error) {
+                console.error('加载材质文件失败:', error);
+                // 不使用材质，直接加载OBJ
+                loadOBJWithoutMaterial();
+            });
+
+            // 备用方案：不使用材质文件直接加载
+            function loadOBJWithoutMaterial() {
+                objLoader.load('建筑模型/building_04.obj', function(object) {
+                    object.scale.set(8, 8, 8);
+                    object.position.set(0, 0, 0);
+
+                    object.traverse(function(child) {
+                        if (child instanceof THREE.Mesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            // 使用默认材质
+                            child.material = new THREE.MeshPhongMaterial({
+                                color: 0x94a3b8,
+                                emissive: 0x1e3a5f,
+                                emissiveIntensity: 0.1
+                            });
+                        }
+                    });
+
+                    scene.add(object);
+                    console.log('建筑模型加载成功（无材质）');
+                });
+            }
+
+            // 动画循环
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // 响应式调整
+            window.addEventListener('resize', function() {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(width, height);
+            });
+        }
+    </script>
+</body>
+</html>

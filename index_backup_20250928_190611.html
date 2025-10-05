@@ -1,0 +1,3757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视觉设计 | 优雅作品集</title>
+    
+    <!-- SEO优化 -->
+    <meta name="description" content="创意视觉设计师作品集，专注品牌设计与创新">
+    <meta name="keywords" content="视觉设计,品牌设计,UI设计,创意总监">
+    
+    <!-- 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- 主题样式 -->
+    <link rel="stylesheet" href="muted_elegant_theme.css">
+    
+    <style>
+        /* 优雅柔和的创意布局 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black-soft);
+            color: var(--gray-soft);
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                var(--gradient-mesh),
+                var(--noise);
+            background-attachment: fixed;
+        }
+
+        /* 导航栏 - 极简风格 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--space-6) var(--space-8);
+            background: linear-gradient(to bottom, 
+                var(--black-soft) 0%, 
+                transparent 100%);
+            backdrop-filter: blur(20px);
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .navbar.scrolled {
+            background: var(--glass-dark);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--white-soft), var(--gray-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--text-shadow-soft);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-10);
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--gray-warm);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all var(--duration-fast) var(--ease-smooth);
+            position: relative;
+            padding: var(--space-2) 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background: var(--red-soft);
+            transition: width var(--duration-normal) var(--ease-smooth);
+        }
+
+        .nav-link:hover {
+            color: var(--white-soft);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 英雄区域 - 非对称中心布局 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: var(--space-10) var(--space-8);
+            background: radial-gradient(ellipse at 30% 20%, 
+                var(--red-deepest) 0%, 
+                transparent 40%),
+                radial-gradient(ellipse at 70% 80%, 
+                var(--gray-dark) 0%, 
+                transparent 40%);
+            overflow: hidden;
+        }
+
+        /* 粒子背景 */
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--red-soft);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 15s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 动态网格背景 */
+        .grid-background {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--red-muted) 1px, transparent 1px),
+                linear-gradient(90deg, var(--red-muted) 1px, transparent 1px);
+            background-size: 100px 100px;
+            opacity: 0.03;
+            animation: gridMove 20s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        /* 光晕效果 */
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--red-muted), transparent);
+            opacity: 0.1;
+            filter: blur(100px);
+            pointer-events: none;
+            animation: glowPulse 8s infinite ease-in-out;
+        }
+
+        .hero-glow-1 {
+            top: -200px;
+            left: -200px;
+        }
+
+        .hero-glow-2 {
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 4s;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.1;
+            }
+            50% { 
+                transform: scale(1.2); 
+                opacity: 0.05;
+            }
+        }
+
+        /* 装饰线条 */
+        .hero-lines {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .hero-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--red-muted), transparent);
+            opacity: 0.2;
+        }
+
+        .hero-line-1 {
+            width: 100%;
+            height: 1px;
+            top: 20%;
+            animation: lineSlide 10s infinite ease-in-out;
+        }
+
+        .hero-line-2 {
+            width: 1px;
+            height: 100%;
+            left: 15%;
+            animation: lineSlideVertical 12s infinite ease-in-out;
+        }
+
+        .hero-line-3 {
+            width: 100%;
+            height: 1px;
+            bottom: 30%;
+            animation: lineSlide 15s infinite ease-in-out reverse;
+        }
+
+        @keyframes lineSlide {
+            0%, 100% { 
+                transform: translateX(-100%); 
+                opacity: 0;
+            }
+            50% { 
+                transform: translateX(0); 
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes lineSlideVertical {
+            0%, 100% { 
+                transform: translateY(-100%); 
+                opacity: 0;
+            }
+            50% { 
+                transform: translateY(0); 
+                opacity: 0.15;
+            }
+        }
+
+        /* 英雄页大型装饰元素 - 简约大气设计 */
+        .hero-large-element {
+            position: absolute;
+            pointer-events: none;
+        }
+        
+        /* 大型渐变圆环 */
+        .hero-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(122, 64, 64, 0.08);
+            background: radial-gradient(circle, 
+                transparent 65%, 
+                rgba(122, 64, 64, 0.02) 70%,
+                rgba(122, 64, 64, 0.05) 85%,
+                transparent 100%);
+        }
+        
+        .hero-ring-1 {
+            width: 800px;
+            height: 800px;
+            top: -200px;
+            left: -400px;
+            animation: ringFloat 20s infinite ease-in-out;
+        }
+        
+        .hero-ring-2 {
+            width: 600px;
+            height: 600px;
+            bottom: -150px;
+            right: -300px;
+            animation: ringFloat 25s infinite ease-in-out reverse;
+        }
+        
+        @keyframes ringFloat {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.1) rotate(180deg);
+                opacity: 0.5;
+            }
+        }
+        
+        /* 大型几何分割线 */
+        .hero-divider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .divider-line {
+            position: absolute;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(122, 64, 64, 0.05) 20%,
+                rgba(122, 64, 64, 0.1) 50%,
+                rgba(122, 64, 64, 0.05) 80%,
+                transparent 100%);
+            transform-origin: center;
+        }
+        
+        .divider-line-1 {
+            width: 150%;
+            height: 1px;
+            top: 25%;
+            left: -25%;
+            transform: rotate(-5deg);
+            animation: lineShift 30s infinite ease-in-out;
+        }
+        
+        .divider-line-2 {
+            width: 150%;
+            height: 1px;
+            bottom: 20%;
+            right: -25%;
+            transform: rotate(3deg);
+            animation: lineShift 35s infinite ease-in-out reverse;
+        }
+        
+        @keyframes lineShift {
+            0%, 100% {
+                transform: translateX(0) rotate(-5deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateX(50px) rotate(-5deg);
+                opacity: 0.6;
+            }
+        }
+        
+        /* 大型渐变背景块 */
+        .hero-gradient-block {
+            position: absolute;
+            background: linear-gradient(135deg,
+                rgba(122, 64, 64, 0.03) 0%,
+                rgba(58, 53, 53, 0.05) 50%,
+                transparent 100%);
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        
+        .gradient-block-1 {
+            width: 500px;
+            height: 500px;
+            top: 10%;
+            right: 5%;
+            animation: blockDrift 40s infinite ease-in-out;
+        }
+        
+        .gradient-block-2 {
+            width: 400px;
+            height: 400px;
+            bottom: 15%;
+            left: 8%;
+            animation: blockDrift 45s infinite ease-in-out reverse;
+        }
+        
+        @keyframes blockDrift {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -20px) scale(1.05);
+            }
+            66% {
+                transform: translate(-20px, 30px) scale(0.95);
+            }
+        }
+        
+        /* 大型文字水印 */
+        .hero-watermark {
+            position: absolute;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(122, 64, 64, 0.03);
+            text-transform: uppercase;
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .watermark-left {
+            top: 50%;
+            left: -5%;
+            transform: translateY(-50%) rotate(-90deg);
+            opacity: 0.5;
+        }
+        
+        .watermark-right {
+            top: 50%;
+            right: -5%;
+            transform: translateY(-50%) rotate(90deg);
+            opacity: 0.5;
+        }
+
+        /* 重新设计的标题样式 */
+        .hero-main-text {
+            position: relative;
+            margin-bottom: var(--space-10);
+            padding-top: var(--space-8);
+        }
+        
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+            display: block;
+        }
+        
+        .hero-title-main {
+            font-size: clamp(4rem, 7vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            display: block;
+            background: linear-gradient(135deg, 
+                var(--white-soft) 0%, 
+                var(--gray-lighter) 50%,
+                var(--white-soft) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-4);
+            animation: fadeInScale 1s ease-out;
+        }
+        
+        .hero-title-sub {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: 0.05em;
+            display: block;
+            background: linear-gradient(90deg,
+                var(--red-soft) 0%,
+                var(--red-warm) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: var(--space-3);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        /* 职业标签 */
+        .hero-role {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            animation: slideInRight 1s ease-out 0.5s both;
+        }
+        
+        .role-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                var(--red-soft) 100%);
+        }
+        
+        .role-text {
+            font-size: clamp(0.75rem, 1vw, 0.875rem);
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--red-warm);
+            opacity: 0.7;
+        }
+        
+        @keyframes fadeInScale {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                filter: drop-shadow(0 2px 8px rgba(122, 64, 64, 0.15));
+            }
+            100% { 
+                filter: drop-shadow(0 3px 12px rgba(122, 64, 64, 0.25));
+            }
+        }
+
+        /* 文字装饰 - 削弱阴影效果 */
+        .hero-title::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0.5px;
+            top: 0.5px;
+            z-index: -1;
+            background: linear-gradient(135deg, 
+                var(--red-deep) 0%, 
+                var(--gray-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.1;
+            filter: blur(0.5px);
+        }
+
+        /* 英雄页内容容器 - 非对称中心布局 */
+        .hero-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 中心视觉元素区域 */
+        .hero-visual {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-10);
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        /* 非对称文字内容布局 */
+        .hero-content-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero-content-left {
+            padding-left: var(--space-20);
+            padding-right: var(--space-4);
+            position: relative;
+            z-index: 3;
+            transform: translateY(-60px);
+        }
+        
+        .hero-content-right {
+            padding-top: var(--space-8);
+            padding-right: var(--space-8);
+            position: relative;
+            z-index: 3;
+            text-align: right;
+        }
+        
+        /* 非对称装饰框架 */
+        .hero-frame {
+            position: absolute;
+            width: 500px;
+            height: 300px;
+            border: 2px solid rgba(122, 64, 64, 0.12);
+            transform: rotate(-15deg) translateX(-80px);
+            animation: frameFloat 25s infinite ease-in-out;
+        }
+        
+        .hero-frame::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 60px;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(122, 64, 64, 0.08);
+            transform: rotate(30deg);
+        }
+        
+        .hero-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            right: -50px;
+            width: 250px;
+            height: 200px;
+            border: 1px solid rgba(58, 53, 53, 0.1);
+            transform: rotate(-20deg);
+        }
+        
+        @keyframes frameFloat {
+            0%, 100% { 
+                transform: rotate(-15deg) translateX(-80px) translateY(0);
+            }
+            50% { 
+                transform: rotate(-15deg) translateX(-80px) translateY(-30px);
+            }
+        }
+        
+        /* 中心大文字 - 非对称排列 */
+        .hero-center-text {
+            position: absolute;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14rem;
+            font-weight: 900;
+            letter-spacing: -0.08em;
+            background: linear-gradient(135deg,
+                var(--red-soft) 0%,
+                var(--gray-medium) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.1;
+            transform: translateX(50px) translateY(-30px);
+            animation: textDrift 30s infinite ease-in-out;
+        }
+        
+        .hero-sub-text {
+            position: absolute;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.5em;
+            color: var(--gray-dark);
+            opacity: 0.3;
+            bottom: 80px;
+            right: -120px;
+            transform: rotate(90deg);
+            text-transform: uppercase;
+        }
+        
+        @keyframes textDrift {
+            0%, 100% { 
+                transform: translateX(50px) translateY(-30px);
+                opacity: 0.1;
+            }
+            50% { 
+                transform: translateX(70px) translateY(-50px);
+                opacity: 0.15;
+            }
+        }
+
+        /* 信息区块样式 */
+        .hero-info {
+            position: relative;
+            margin-bottom: var(--space-8);
+        }
+        
+        .info-block {
+            display: inline-flex;
+            align-items: baseline;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+        
+        .info-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--red-soft);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1;
+        }
+        
+        .info-text {
+            font-size: 0.875rem;
+            color: var(--gray-medium);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .subtitle-decoration {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -8px;
+            left: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--red-soft) 50%, 
+                transparent 100%);
+            animation: lineExpand 3s infinite ease-in-out;
+        }
+
+        @keyframes lineExpand {
+            0%, 100% { transform: scaleX(0.5); opacity: 0.5; }
+            50% { transform: scaleX(1); opacity: 1; }
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: var(--space-6);
+            background: linear-gradient(135deg, 
+                var(--white-soft) 0%, 
+                var(--gray-lighter) 50%, 
+                var(--red-soft) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 8px rgba(122, 64, 64, 0.15));
+        }
+
+        .hero-description {
+            font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+            color: var(--gray-pale);
+            max-width: 380px;
+            line-height: 1.6;
+            opacity: 0.85;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            animation: fadeInUp 1s ease-out 1s both;
+            white-space: pre-line;
+        }
+        
+        /* 统计数据样式 */
+        .hero-stats {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            align-items: flex-end;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: var(--space-1);
+            animation: fadeInRight 1s ease-out both;
+        }
+        
+        .stat-item:nth-child(1) { animation-delay: 0.5s; }
+        .stat-item:nth-child(2) { animation-delay: 0.7s; }
+        .stat-item:nth-child(3) { animation-delay: 0.9s; }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--red-soft);
+            line-height: 1;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        @keyframes fadeInRight {
+            0% {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .description-line {
+            display: block;
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .description-line:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        /* 滚动提示 */
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--space-8);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            opacity: 0.6;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .scroll-text {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-lighter);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--red-soft), transparent);
+            animation: lineDown 1.5s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        @keyframes lineDown {
+            0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        /* 几何装饰 */
+        .hero-decoration {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .decoration-shape {
+            position: absolute;
+            border: 1px solid var(--red-muted);
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            right: 10%;
+            transform: rotate(45deg);
+            animation: shapeFloat 15s infinite ease-in-out;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            left: 8%;
+            border-radius: 50%;
+            animation: shapeFloat 20s infinite ease-in-out reverse;
+        }
+
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            right: 5%;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: shapeRotate 25s infinite linear;
+        }
+
+        @keyframes shapeFloat {
+            0%, 100% { transform: translate(0, 0) rotate(45deg); }
+            50% { transform: translate(-30px, 30px) rotate(225deg); }
+        }
+
+        @keyframes shapeRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .btn {
+            padding: var(--space-4) var(--space-8);
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .btn-icon {
+            display: inline-flex;
+            transition: transform var(--duration-fast) var(--ease-smooth);
+        }
+
+        .btn-icon i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn:hover .btn-icon {
+            transform: translateY(2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--red-deep), var(--red-muted));
+            color: var(--white-soft);
+            box-shadow: var(--shadow-red-soft);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-red-medium);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-pale);
+            border: 1px solid var(--gray-medium);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-dark);
+            border-color: var(--gray-light);
+            color: var(--white-soft);
+        }
+
+        /* 关于部分 - 非对称网格 */
+        .about {
+            padding: var(--space-32) var(--space-8);
+            position: relative;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: var(--space-16);
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 3/4;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: all 0.5s ease;
+        }
+
+        .about-image:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                transparent 60%, 
+                rgba(122, 64, 64, 0.2) 100%);
+            pointer-events: none;
+        }
+
+        .about-content {
+            padding: var(--space-8);
+        }
+
+        .personal-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-4) var(--space-8);
+            margin: var(--space-8) 0;
+            padding: var(--space-6);
+            background: var(--black-soft);
+            border: 1px solid var(--gray-dark);
+            border-radius: 8px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--gray-medium);
+            min-width: 60px;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            color: var(--gray-lighter);
+        }
+
+        .section-label {
+            font-size: 0.875rem;
+            color: var(--red-soft);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-3);
+            opacity: 0.8;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            margin-bottom: var(--space-6);
+            color: var(--gray-white);
+            line-height: 1.2;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray-pale);
+            margin-bottom: var(--space-8);
+            opacity: 0.9;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-6);
+            margin-top: var(--space-10);
+        }
+
+        .stat-item {
+            padding: var(--space-4);
+            background: linear-gradient(135deg, 
+                var(--highlight-gray) 0%, 
+                transparent 100%);
+            border-left: 2px solid var(--red-muted);
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .stat-item:hover {
+            background: var(--highlight-red-subtle);
+            border-left-color: var(--red-soft);
+            transform: translateX(4px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--red-warm);
+            margin-bottom: var(--space-2);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-lighter);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* 作品集 - 创意布局 */
+        .portfolio {
+            padding: var(--space-32) var(--space-8);
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                var(--black-warm) 50%, 
+                var(--black-soft) 100%);
+        }
+
+        .portfolio-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: var(--space-20);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--space-6);
+            grid-auto-rows: 280px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            background: var(--gray-dark);
+            transition: all var(--duration-slow) var(--ease-smooth);
+            cursor: pointer;
+            border-radius: 0;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--duration-slow) var(--ease-smooth);
+        }
+
+        /* hover只影响图片缩放，不影响遮罩层 */
+        .portfolio-grid .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 确保hover不影响::before伪元素 - 加强规则 */
+        .portfolio-grid .portfolio-item:hover::before,
+        .portfolio-grid .portfolio-item:nth-child(1):hover::before,
+        .portfolio-grid .portfolio-item:nth-child(2):hover::before,
+        .portfolio-grid .portfolio-item:nth-child(3):hover::before,
+        .portfolio-grid .portfolio-item:nth-child(4):hover::before,
+        .portfolio-grid .portfolio-item:nth-child(5):hover::before {
+            opacity: 1 !important;
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            pointer-events: none !important;
+        }
+
+        /* 不规则网格分布和独特阴影 */
+        .portfolio-item:nth-child(1) { 
+            grid-column: span 7; 
+            grid-row: span 2;
+            /* 恒创广告VI - 深层立体阴影 */
+            box-shadow: 
+                0 4px 8px rgba(122, 64, 64, 0.15),
+                0 8px 16px rgba(0, 0, 0, 0.2),
+                0 16px 32px rgba(0, 0, 0, 0.1),
+                inset 0 -2px 4px rgba(122, 64, 64, 0.05);
+        }
+        
+        .portfolio-item:nth-child(2) { 
+            grid-column: span 5;
+            /* 赣南脐橙 - 温暖扩散阴影 */
+            box-shadow: 
+                0 6px 12px rgba(122, 80, 64, 0.2),
+                0 12px 24px rgba(122, 64, 64, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+        
+        .portfolio-item:nth-child(3) { 
+            grid-column: span 5;
+            /* 太空探索 - 科技光晕阴影 */
+            box-shadow: 
+                0 0 20px rgba(122, 64, 100, 0.15),
+                0 8px 16px rgba(0, 0, 0, 0.2),
+                0 20px 40px rgba(122, 64, 64, 0.08);
+        }
+        
+        .portfolio-item:nth-child(4) { 
+            grid-column: span 4;
+            /* 美妆直播 - 柔和层次阴影 */
+            box-shadow: 
+                0 3px 6px rgba(122, 64, 64, 0.12),
+                0 6px 12px rgba(0, 0, 0, 0.15),
+                0 12px 24px rgba(122, 64, 64, 0.06),
+                inset 0 1px 2px rgba(255, 255, 255, 0.02);
+        }
+        
+        .portfolio-item:nth-child(5) { 
+            grid-column: span 8; 
+            grid-row: span 2;
+            /* 四美宣传片 - 戏剧性长阴影 */
+            box-shadow: 
+                2px 2px 4px rgba(122, 64, 64, 0.15),
+                4px 4px 8px rgba(0, 0, 0, 0.2),
+                8px 8px 16px rgba(0, 0, 0, 0.15),
+                16px 16px 32px rgba(122, 64, 64, 0.05);
+        }
+        
+        .portfolio-decoration { 
+            grid-column: span 4;
+            position: relative;
+        }
+        
+        /* 装饰元素的独特遮罩 */
+        .portfolio-decoration::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg,
+                rgba(122, 64, 64, 0.03) 0%,
+                rgba(13, 13, 13, 0.1) 25%,
+                rgba(122, 64, 64, 0.05) 50%,
+                rgba(13, 13, 13, 0.15) 75%,
+                rgba(13, 13, 13, 0.2) 100%);
+            opacity: 1 !important;
+            pointer-events: none;
+        }
+
+        /* 每个项目独特的遮罩层效果 - 直接显示 */
+        .portfolio-grid .portfolio-item:nth-child(1)::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            /* 恒创广告VI - 专业渐变遮罩（加重版） */
+            background: linear-gradient(180deg,
+                rgba(13, 13, 13, 0.2) 0%,
+                rgba(13, 13, 13, 0.3) 40%,
+                rgba(13, 13, 13, 0.5) 60%,
+                rgba(13, 13, 13, 0.85) 90%,
+                rgba(13, 13, 13, 0.95) 100%) !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+        }
+
+        .portfolio-grid .portfolio-item:nth-child(2)::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            /* 赣南脐橙 - 温暖斜角遮罩（加重版） */
+            background: linear-gradient(135deg,
+                rgba(122, 80, 64, 0.25) 0%,
+                rgba(58, 53, 53, 0.3) 30%,
+                rgba(13, 13, 13, 0.4) 50%,
+                rgba(13, 13, 13, 0.7) 80%,
+                rgba(13, 13, 13, 0.9) 100%) !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+        }
+
+        .portfolio-grid .portfolio-item:nth-child(3)::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            /* 太空探索 - 科技径向遮罩（加重版） */
+            background: radial-gradient(ellipse at center,
+                rgba(122, 64, 100, 0.15) 0%,
+                rgba(58, 53, 53, 0.25) 25%,
+                rgba(122, 64, 100, 0.3) 50%,
+                rgba(13, 13, 13, 0.75) 85%,
+                rgba(13, 13, 13, 0.92) 100%) !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+        }
+
+        .portfolio-grid .portfolio-item:nth-child(4)::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            /* 美妆直播 - 柔和对角遮罩（加重版） */
+            background: linear-gradient(to bottom right,
+                rgba(13, 13, 13, 0.2) 0%,
+                rgba(122, 64, 64, 0.3) 35%,
+                rgba(13, 13, 13, 0.55) 65%,
+                rgba(13, 13, 13, 0.88) 100%) !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+        }
+
+        .portfolio-grid .portfolio-item:nth-child(5)::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            /* 四美宣传片 - 电影感遮罩（加重版） */
+            background: linear-gradient(180deg,
+                rgba(13, 13, 13, 0.25) 0%,
+                rgba(13, 13, 13, 0.15) 20%,
+                rgba(13, 13, 13, 0.3) 60%,
+                rgba(13, 13, 13, 0.5) 75%,
+                rgba(13, 13, 13, 0.7) 85%,
+                rgba(13, 13, 13, 0.9) 100%) !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+        }
+
+
+
+        .portfolio-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-6);
+            background: linear-gradient(to top, 
+                rgba(13, 13, 13, 0.95) 0%, 
+                rgba(13, 13, 13, 0.7) 50%,
+                transparent 100%);
+            transform: translateY(100%);
+            transition: transform var(--duration-normal) var(--ease-smooth);
+            z-index: 2; /* 确保文字在遮罩层之上 */
+        }
+
+        .portfolio-grid .portfolio-item:hover .portfolio-info {
+            transform: translateY(0);
+        }
+
+        .portfolio-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white-soft);
+            margin-bottom: var(--space-2);
+        }
+
+        .portfolio-category {
+            font-size: 0.875rem;
+            color: var(--red-soft);
+            opacity: 0.9;
+        }
+
+        /* 装饰元素样式 */
+        .portfolio-decoration {
+            position: relative;
+            background: linear-gradient(135deg, 
+                var(--black-warm) 0%, 
+                var(--gray-dark) 50%,
+                var(--red-deepest) 100%);
+            overflow: hidden;
+        }
+
+        .decoration-grid {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 动态线条1 */
+        .decoration-line-1 {
+            position: absolute;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--red-muted) 50%, 
+                transparent 100%);
+            opacity: 0.6;
+            top: 30%;
+            left: 10%;
+            animation: lineMove1 8s infinite ease-in-out;
+        }
+
+        @keyframes lineMove1 {
+            0%, 100% { transform: translateX(0) scaleX(1); opacity: 0.6; }
+            50% { transform: translateX(10px) scaleX(1.2); opacity: 0.3; }
+        }
+
+        /* 动态线条2 */
+        .decoration-line-2 {
+            position: absolute;
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--gray-light) 50%, 
+                transparent 100%);
+            opacity: 0.4;
+            bottom: 35%;
+            right: 20%;
+            animation: lineMove2 10s infinite ease-in-out;
+        }
+
+        @keyframes lineMove2 {
+            0%, 100% { transform: translateX(0) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateX(-20px) rotate(3deg); opacity: 0.2; }
+        }
+
+        /* 中心圆环 */
+        .decoration-circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--red-muted);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: circleRotate 15s infinite linear;
+        }
+
+        .decoration-circle::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid var(--gray-medium);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .decoration-circle::after {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border: 1px solid var(--red-deepest);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: circleRotateReverse 20s infinite linear;
+        }
+
+        @keyframes circleRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes circleRotateReverse {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        /* 点阵 */
+        .decoration-dots {
+            position: absolute;
+            display: flex;
+            gap: var(--space-3);
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .decoration-dots span {
+            width: 4px;
+            height: 4px;
+            background: var(--red-soft);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: dotPulse 3s infinite ease-in-out;
+        }
+
+        .decoration-dots span:nth-child(1) { animation-delay: 0s; }
+        .decoration-dots span:nth-child(2) { animation-delay: 0.3s; }
+        .decoration-dots span:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+        }
+
+        /* 悬停效果 */
+        .portfolio-decoration:hover .decoration-line-1 {
+            animation-duration: 4s;
+        }
+
+        .portfolio-decoration:hover .decoration-line-2 {
+            animation-duration: 5s;
+        }
+
+        .portfolio-decoration:hover .decoration-circle {
+            animation-duration: 8s;
+            opacity: 0.3;
+        }
+
+        .portfolio-decoration:hover .decoration-dots span {
+            animation-duration: 1.5s;
+        }
+
+        /* 视频播放按钮 */
+        .portfolio-video {
+            cursor: pointer;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: var(--glass-dark);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--white-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all var(--duration-normal) var(--ease-smooth);
+            z-index: 2;
+        }
+
+        .play-button i {
+            width: 24px;
+            height: 24px;
+            color: var(--white-soft);
+            margin-left: 3px;
+        }
+
+        .portfolio-video:hover .play-button {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .portfolio-video:hover img {
+            filter: brightness(0.85);
+        }
+        
+        /* 确保视频项目的遮罩层也不受hover影响 */
+        .portfolio-video:hover::before {
+            opacity: 1 !important;
+        }
+        
+
+        /* 项目详情弹窗样式 */
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: var(--space-8);
+            overflow-y: auto;
+        }
+
+        .project-modal.active {
+            display: flex;
+        }
+
+        .project-container {
+            background: var(--black-warm);
+            border: 1px solid var(--gray-dark);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 1400px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .project-header {
+            background: var(--black-soft);
+            border-bottom: 1px solid var(--gray-dark);
+            padding: var(--space-4) var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-title-modal {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white-soft);
+            background: linear-gradient(135deg, var(--white-soft), var(--red-soft));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-project {
+            background: transparent;
+            border: none;
+            color: var(--gray-lighter);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all var(--duration-fast);
+        }
+
+        .close-project:hover {
+            background: var(--gray-dark);
+            color: var(--white-soft);
+            transform: rotate(90deg);
+        }
+
+        .project-nav {
+            background: var(--black-medium);
+            border-bottom: 1px solid var(--gray-dark);
+            padding: 0 var(--space-6);
+            display: flex;
+            gap: var(--space-4);
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gray-dark) transparent;
+        }
+
+        .project-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .project-nav::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .project-nav::-webkit-scrollbar-thumb {
+            background: var(--gray-dark);
+            border-radius: 2px;
+        }
+
+        .nav-item {
+            padding: var(--space-3) var(--space-4);
+            background: transparent;
+            border: none;
+            color: var(--gray-lighter);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all var(--duration-fast);
+            border-bottom: 2px solid transparent;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            color: var(--white-soft);
+            background: var(--highlight-white-subtle);
+        }
+
+        .nav-item.active {
+            color: var(--red-soft);
+            border-bottom-color: var(--red-soft);
+            background: var(--highlight-red-subtle);
+        }
+
+        .project-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-6);
+        }
+
+        .process-section {
+            display: none;
+            grid-template-columns: 1.5fr 1fr;
+            gap: var(--space-8);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .process-section.active {
+            display: grid;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .process-image-container {
+            width: 100%;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--black-soft);
+            border-radius: 8px;
+            border: 1px solid var(--gray-dark);
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+        }
+
+        .process-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .process-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .process-overview {
+            background: var(--black-soft);
+            border: 1px solid var(--gray-dark);
+            border-radius: 8px;
+            padding: var(--space-4);
+        }
+
+        .process-overview h3 {
+            color: var(--red-warm);
+            font-size: 1.125rem;
+            margin-bottom: var(--space-2);
+            font-weight: 600;
+        }
+
+        .process-overview p {
+            color: var(--gray-lighter);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .process-work {
+            background: var(--black-light);
+            border: 1px solid var(--gray-dark);
+            border-radius: 8px;
+            padding: var(--space-4);
+        }
+
+        .process-work h3 {
+            color: var(--red-warm);
+            font-size: 1.125rem;
+            margin-bottom: var(--space-3);
+            font-weight: 600;
+        }
+
+        .process-work ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .process-work li {
+            color: var(--gray-lighter);
+            padding: var(--space-2) 0;
+            padding-left: var(--space-4);
+            position: relative;
+            line-height: 1.5;
+            font-size: 0.875rem;
+        }
+
+        .process-work li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--red-soft);
+            border-radius: 50%;
+        }
+
+        .process-work li strong {
+            font-weight: 600;
+            color: var(--white-soft);
+        }
+
+        @media (max-width: 968px) {
+            .process-section {
+                grid-template-columns: 1fr;
+            }
+
+            .project-content {
+                padding: var(--space-4);
+            }
+
+            .project-nav {
+                padding: 0 var(--space-4);
+            }
+        }
+
+        /* 视频弹窗 */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8);
+            opacity: 0;
+            transition: opacity var(--duration-normal) var(--ease-smooth);
+        }
+
+        .video-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background: var(--black-pure);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: var(--shadow-intense);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .close-video {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            width: 40px;
+            height: 40px;
+            background: var(--glass-dark);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gray-medium);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-smooth);
+            z-index: 10;
+        }
+
+        .close-video:hover {
+            background: var(--red-muted);
+            border-color: var(--red-soft);
+            transform: rotate(90deg);
+        }
+
+        .close-video i {
+            width: 20px;
+            height: 20px;
+            color: var(--white-soft);
+        }
+
+        /* 技能 - 动态排列 */
+        .skills {
+            padding: var(--space-32) var(--space-8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skills::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: var(--gradient-radial-red);
+            opacity: 0.5;
+            animation: pulse 8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            justify-content: center;
+        }
+
+        .skill-card {
+            padding: var(--space-6) var(--space-8);
+            background: var(--glass-dark);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gray-dark);
+            transition: all var(--duration-normal) var(--ease-elastic);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--shine);
+            transform: rotate(45deg);
+            transition: all var(--duration-slow) var(--ease-smooth);
+            opacity: 0;
+        }
+
+        .skill-card:hover::before {
+            animation: shine 0.5s;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: rotate(45deg) translateX(100%); opacity: 0; }
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px) rotate(-1deg);
+            background: var(--highlight-red-subtle);
+            border-color: var(--red-muted);
+            box-shadow: var(--shadow-red-soft);
+        }
+
+        .skill-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--gray-white);
+            margin-bottom: var(--space-2);
+        }
+
+        .skill-level {
+            font-size: 0.875rem;
+            color: var(--gray-lighter);
+            opacity: 0.8;
+        }
+
+        /* 教育背景 - 横向布局 */
+        .education {
+            padding: var(--space-20) var(--space-8);
+            background: var(--black-warm);
+            position: relative;
+        }
+
+        .education-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .education-horizontal {
+            margin-top: var(--space-12);
+            position: relative;
+            background: var(--black-soft);
+            border: 1px solid var(--gray-dark);
+            border-radius: 16px;
+            padding: var(--space-8);
+            overflow: hidden;
+        }
+
+        /* 横向时间轴 */
+        .edu-timeline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                var(--red-soft) 0%,
+                var(--red-warm) 50%,
+                var(--red-soft) 100%);
+        }
+
+        .timeline-point {
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--red-warm);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(122, 64, 64, 0.5);
+        }
+
+        .edu-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--space-10);
+            align-items: center;
+            padding-top: var(--space-4);
+        }
+
+        .edu-left {
+            text-align: center;
+            padding-right: var(--space-6);
+            border-right: 1px solid var(--gray-dark);
+        }
+
+        .edu-period {
+            font-size: 0.85rem;
+            color: var(--red-soft);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-3);
+        }
+
+        .edu-school {
+            font-size: 1.6rem;
+            color: var(--white-soft);
+            font-weight: 300;
+            margin-bottom: var(--space-2);
+            letter-spacing: 0.02em;
+        }
+
+        .edu-major {
+            font-size: 1rem;
+            color: var(--gray-lighter);
+            opacity: 0.9;
+        }
+
+        .edu-right {
+            padding-left: var(--space-6);
+        }
+
+        .courses-label {
+            font-size: 0.8rem;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: var(--space-4);
+        }
+
+        .courses-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+        }
+
+        .course-tag {
+            font-size: 0.85rem;
+            color: var(--gray-lighter);
+            padding: var(--space-2) var(--space-4);
+            background: var(--black-warm);
+            border: 1px solid var(--gray-dark);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .course-tag:hover {
+            background: var(--highlight-red-subtle);
+            color: var(--white-soft);
+            border-color: var(--red-muted);
+            transform: translateY(-2px);
+        }
+
+        /* 专业技能 - 高级设计 */
+        .skills {
+            background: linear-gradient(180deg, var(--black-soft) 0%, var(--black-warm) 100%);
+        }
+        
+        .skills-section {
+            margin-bottom: var(--space-16);
+        }
+
+        .skills-category {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-3);
+            border-bottom: 1px solid var(--gray-dark);
+        }
+
+        .category-number {
+            font-size: 2.5rem;
+            font-weight: 100;
+            color: var(--red-soft);
+            opacity: 0.5;
+        }
+
+        .category-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--white-soft);
+            letter-spacing: 0.05em;
+        }
+
+        /* 核心能力卡片 */
+        .core-abilities {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+
+        .ability-card {
+            display: flex;
+            gap: var(--space-6);
+            padding: var(--space-6);
+            background: var(--black-soft);
+            border: 1px solid var(--gray-dark);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ability-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg,
+                var(--red-soft) 0%,
+                var(--red-warm) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ability-card:hover {
+            transform: translateX(10px);
+            background: rgba(122, 64, 64, 0.05);
+            border-color: var(--red-muted);
+        }
+
+        .ability-card:hover::before {
+            opacity: 1;
+        }
+
+        .ability-number {
+            font-size: 2rem;
+            font-weight: 100;
+            color: var(--red-soft);
+            opacity: 0.3;
+            min-width: 50px;
+        }
+
+        .ability-content h4 {
+            font-size: 1.2rem;
+            color: var(--white-soft);
+            margin-bottom: var(--space-3);
+            font-weight: 400;
+        }
+
+        .ability-content p {
+            font-size: 0.9rem;
+            color: var(--gray-lighter);
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* 软件技能展示 */
+        .software-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .software-card {
+            background: var(--black-soft);
+            border: 1px solid var(--gray-dark);
+            border-radius: 12px;
+            padding: var(--space-5);
+            transition: all 0.3s ease;
+        }
+
+        .software-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-red-soft);
+            border-color: var(--red-muted);
+        }
+
+        .software-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+        }
+
+        .software-name {
+            font-size: 1rem;
+            color: var(--white-soft);
+            font-weight: 500;
+        }
+
+        .software-level {
+            font-size: 0.9rem;
+            color: var(--red-soft);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: var(--gray-dark);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: var(--space-2);
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg,
+                var(--red-soft) 0%,
+                var(--red-warm) 100%);
+            border-radius: 3px;
+            transition: width 1.5s ease;
+        }
+
+        .software-desc {
+            font-size: 0.8rem;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* 复合能力网格 */
+        .compound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .compound-card {
+            padding: var(--space-5);
+            background: var(--black-soft);
+            border: 1px solid var(--gray-dark);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .compound-card:hover {
+            transform: scale(1.02);
+            background: rgba(122, 64, 64, 0.03);
+            border-color: var(--red-muted);
+        }
+
+        .compound-icon {
+            font-size: 0.6rem;
+            color: var(--red-soft);
+            margin-bottom: var(--space-3);
+        }
+
+        .compound-card h4 {
+            font-size: 1rem;
+            color: var(--white-soft);
+            margin-bottom: var(--space-2);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .compound-card p {
+            font-size: 0.85rem;
+            color: var(--gray-lighter);
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .edu-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+
+            .edu-left {
+                border-right: none;
+                border-bottom: 1px solid var(--gray-dark);
+                padding-right: 0;
+                padding-bottom: var(--space-6);
+            }
+
+            .edu-right {
+                padding-left: 0;
+            }
+
+            .core-skills {
+                grid-template-columns: 1fr;
+            }
+
+            .software-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 联系 - 全新极简设计 */
+        .contact {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, 
+                var(--black-soft) 0%, 
+                var(--black-warm) 100%);
+            overflow: hidden;
+        }
+
+        /* 分割线装饰 */
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80%;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(122, 64, 64, 0.2) 20%,
+                rgba(122, 64, 64, 0.2) 80%,
+                transparent 100%);
+        }
+
+        .contact-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            padding: var(--space-10) var(--space-8);
+        }
+
+        /* 对称布局 - 中心分割 */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-20);
+            align-items: center;
+            position: relative;
+        }
+
+        /* 左侧信息区 */
+        .contact-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding-right: var(--space-10);
+            text-align: right;
+        }
+
+        .contact-title {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 200;
+            color: var(--white-soft);
+            letter-spacing: 0.02em;
+            margin-bottom: var(--space-6);
+            line-height: 1.2;
+        }
+
+        .contact-title-main {
+            display: block;
+            position: relative;
+        }
+
+        .contact-title-en {
+            display: block;
+            font-size: 0.25em;
+            letter-spacing: 0.3em;
+            color: var(--gray-medium);
+            margin-top: var(--space-3);
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .contact-description {
+            font-size: 1.1rem;
+            color: var(--gray-lighter);
+            line-height: 1.8;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        .contact-description span {
+            display: block;
+            margin-bottom: var(--space-2);
+        }
+
+        /* 右侧联系信息 */
+        .contact-right {
+            padding-left: var(--space-10);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-10);
+        }
+
+        .info-item {
+            position: relative;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: var(--red-soft);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: var(--space-2);
+            opacity: 0.8;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            color: var(--white-soft);
+            font-weight: 200;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .info-value:hover {
+            color: var(--red-warm);
+            transform: translateX(10px);
+        }
+
+        /* 社交媒体 */
+        .contact-social {
+            margin-top: var(--space-12);
+            display: flex;
+            gap: var(--space-6);
+        }
+
+        .social-item {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gray-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-item:hover {
+            border-color: var(--red-soft);
+            background: var(--highlight-red-subtle);
+            transform: translateY(-3px);
+        }
+
+        .social-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--gray-light);
+            transition: color 0.3s ease;
+        }
+
+        .social-item:hover svg {
+            color: var(--white-soft);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-10);
+            }
+
+            .contact::before {
+                display: none;
+            }
+
+            .contact-left {
+                text-align: left;
+                padding-right: 0;
+            }
+
+            .contact-right {
+                padding-left: 0;
+            }
+
+            .contact-description {
+                margin-left: 0;
+            }
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: var(--space-4) var(--space-8);
+            background: linear-gradient(135deg, var(--red-deep), var(--red-medium));
+            color: var(--white-soft);
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-red-medium);
+        }
+
+        /* 社交链接样式 */
+        .social-links {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+            justify-content: flex-start;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--black-soft);
+            border: 1px solid var(--gray-dark);
+            border-radius: 10px;
+            color: var(--gray-lighter);
+            transition: all var(--duration-fast) var(--ease-smooth);
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-2px);
+            background: var(--red-muted);
+            border-color: var(--red-soft);
+            color: var(--white-soft);
+        }
+        
+        .social-link i {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* 页脚 */
+        .footer {
+            padding: var(--space-8) var(--space-16);
+            background: var(--black-pure);
+            text-align: center;
+            border-top: 1px solid var(--gray-dark);
+        }
+
+        .footer-text {
+            color: var(--gray-medium);
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .portfolio-item:nth-child(1) { grid-column: span 6; }
+            .portfolio-item:nth-child(2) { grid-column: span 3; }
+            .portfolio-item:nth-child(3) { grid-column: span 3; }
+            .portfolio-item:nth-child(4) { grid-column: span 2; }
+            .portfolio-item:nth-child(5) { grid-column: span 4; }
+            .portfolio-decoration { grid-column: span 6; }
+
+            .contact {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 10vw, 3rem);
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-item,
+            .portfolio-decoration {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="logo">视觉设计</div>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link">首页</a></li>
+                <li><a href="#about" class="nav-link">关于</a></li>
+                <li><a href="#portfolio" class="nav-link">作品</a></li>
+                <li><a href="#skills" class="nav-link">技能</a></li>
+                <li><a href="#contact" class="nav-link">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="hero">
+        <!-- 动态网格背景 -->
+        <div class="grid-background"></div>
+        
+        <!-- 粒子效果 -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- 光晕效果 -->
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+        
+        <!-- 装饰线条 -->
+        <div class="hero-lines">
+            <div class="hero-line hero-line-1"></div>
+            <div class="hero-line hero-line-2"></div>
+            <div class="hero-line hero-line-3"></div>
+        </div>
+        
+        <!-- 大型装饰元素 -->
+        <!-- 渐变圆环 -->
+        <div class="hero-ring hero-ring-1"></div>
+        <div class="hero-ring hero-ring-2"></div>
+        
+        <!-- 几何分割线 -->
+        <div class="hero-divider">
+            <div class="divider-line divider-line-1"></div>
+            <div class="divider-line divider-line-2"></div>
+        </div>
+        
+        <!-- 渐变背景块 -->
+        <div class="hero-gradient-block gradient-block-1"></div>
+        <div class="hero-gradient-block gradient-block-2"></div>
+        
+        <!-- 大型文字水印 -->
+        <div class="hero-watermark watermark-left">DESIGN</div>
+        <div class="hero-watermark watermark-right">CREATE</div>
+        
+        <!-- 主要内容容器 -->
+        <div class="hero-container">
+            <!-- 中心视觉元素 -->
+            <div class="hero-visual">
+                <div class="hero-frame"></div>
+                <div class="hero-center-text">DESIGN</div>
+                <div class="hero-sub-text">CREATE</div>
+            </div>
+            
+            <!-- 非对称文字内容布局 -->
+            <div class="hero-content-wrapper">
+                <!-- 重新设计的文字内容 -->
+                <div class="hero-content-left">
+                    <!-- 主标题区域 -->
+                    <div class="hero-main-text">
+                        <h1 class="hero-title">
+                            <span class="hero-title-main">设计思维</span>
+                            <span class="hero-title-sub">创造价值</span>
+                        </h1>
+                        
+                        <!-- 职业标签 -->
+                        <div class="hero-role">
+                            <span class="role-line"></span>
+                            <span class="role-text">创意视觉设计师</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 描述文字 -->
+                    <div class="hero-info">
+                        <div class="info-block">
+                            <span class="info-number">50+</span>
+                            <span class="info-text">创意作品呈现</span>
+                        </div>
+                        <p class="hero-description">
+                            专注于创造独特的视觉体验，
+                            将创意与策略完美融合，
+                            打造令人难忘的品牌形象
+                        </p>
+                    </div>
+                    
+                    <!-- 按钮区域 -->
+                    <div class="hero-cta">
+                        <a href="#portfolio" class="btn btn-primary">
+                            <span class="btn-text">查看作品</span>
+                            <span class="btn-icon"><i data-lucide="arrow-down"></i></span>
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            <span class="btn-text">联系合作</span>
+                            <span class="btn-icon"><i data-lucide="message-circle"></i></span>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- 滚动提示 -->
+        <div class="scroll-indicator">
+            <span class="scroll-text">滚动探索</span>
+            <div class="scroll-line"></div>
+        </div>
+        
+        <!-- 几何装饰 -->
+        <div class="hero-decoration">
+            <div class="decoration-shape shape-1"></div>
+            <div class="decoration-shape shape-2"></div>
+            <div class="decoration-shape shape-3"></div>
+        </div>
+    </section>
+
+    <!-- 关于部分 -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="李沐阳.png" alt="李沐阳 - 视觉设计师">
+            </div>
+            <div class="about-content">
+                <div class="section-label">关于我</div>
+                <h2 class="section-title">李沐阳<br></h2>
+                
+                <div class="personal-info">
+                    <div class="info-row">
+                        <span class="info-label">性别：</span>
+                        <span class="info-value">男</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">现居：</span>
+                        <span class="info-value">深圳市福田区</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">学历：</span>
+                        <span class="info-value">大专</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">求职：</span>
+                        <span class="info-value">平面设计师</span>
+                    </div>
+                </div>
+                
+                <p class="about-text">
+                    我是一名充满创意与热情的皮具艺术设计专业学生，毕业于广东职业技术学院。
+                    熟练掌握多种设计软件，包括Photoshop、Illustrator、After Effects等。
+                    我相信优秀的设计能够传递情感、讲述故事，期待通过我的设计为品牌创造独特价值。
+                </p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2018</div>
+                        <div class="stat-label">入学年份</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">专业课程</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">创意激情</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section class="education" id="education">
+        <div class="education-container">
+            <div class="section-header">
+                <h2 class="section-title">教育背景</h2>
+                <div class="section-subtitle">Educational Background</div>
+            </div>
+            
+            <div class="education-horizontal">
+                <div class="edu-timeline">
+                    <div class="timeline-bar"></div>
+                    <div class="timeline-point"></div>
+                </div>
+                
+                <div class="edu-content">
+                    <div class="edu-left">
+                        <div class="edu-period">2018.9 - 2021.6</div>
+                        <h3 class="edu-school">广东职业技术学院</h3>
+                        <div class="edu-major">皮具艺术设计 · 大专</div>
+                    </div>
+                    
+                    <div class="edu-right">
+                        <div class="courses-label">主修课程</div>
+                        <div class="courses-list">
+                            <span class="course-tag">设计创意与构成</span>
+                            <span class="course-tag">皮革材料与应用</span>
+                            <span class="course-tag">造型基础与透视学</span>
+                            <span class="course-tag">数字图形与三维效果图制作</span>
+                            <span class="course-tag">皮具款式设计</span>
+                            <span class="course-tag">色彩搭配设计</span>
+                            <span class="course-tag">材料应用设计</span>
+                            <span class="course-tag">箱包CAD</span>
+                            <span class="course-tag">箱包手绘效果图</span>
+                            <span class="course-tag">皮具艺术设计</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业技能 -->
+    <section class="skills" id="skills">
+        <div class="skills-container">
+            <div class="section-header">
+                <h2 class="section-title">专业技能</h2>
+                <div class="section-subtitle">Professional Skills</div>
+            </div>
+            
+            <!-- 核心能力 -->
+            <div class="skills-section">
+                <h3 class="skills-category">
+                    <span class="category-number">01</span>
+                    <span class="category-text">核心能力</span>
+                </h3>
+                <div class="core-abilities">
+                    <div class="ability-card">
+                        <div class="ability-number">1.</div>
+                        <div class="ability-content">
+                            <h4>品牌视觉系统搭建</h4>
+                            <p>具备从0到1的品牌视觉系统搭建能力，深度参与品牌策略讨论，能够将品牌定位转化为具有市场竞争力的视觉符号系统。精通VI手册开发全流程，主导完成过包括标志设计、应用系统规范（办公事务、环境导视、宣传物料）在内的完整品牌形象建设项目。</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-number">2.</div>
+                        <div class="ability-content">
+                            <h4>全渠道设计规范</h4>
+                            <p>掌握线上线下全渠道设计规范与输出技术。精通印刷工艺与材质特性（特种纸张、烫印UV工艺），能独立完成画册、包装等高端印刷品的印前设计与后期监印；同时具备数字化设计能力，熟悉网页设计规范、移动端UI设计原则与动效设计基础。</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-number">3.</div>
+                        <div class="ability-content">
+                            <h4>市场导向设计思维</h4>
+                            <p>具备市场导向的设计思维，能够将营销策略转化为具有销售力的视觉方案。通过用户调研与数据反馈持续优化设计方案，曾主导的包装redesign项目使产品线下销量提升15%，设计的系列社交媒体海报获得超10万+曝光，转化率提升25%。</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-number">4.</div>
+                        <div class="ability-content">
+                            <h4>Adobe全家桶精通</h4>
+                            <p>精通Adobe Creative Cloud核心软件的高级应用技巧：Photoshop（高级修图、合成技术）、Illustrator（复杂矢量图形绘制、字形设计）、InDesign（长篇文档排版、样式管理）。建立个人设计资源库与自动化动作集，提升设计效率40%。</p>
+                        </div>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-number">5.</div>
+                        <div class="ability-content">
+                            <h4>三维动效设计能力</h4>
+                            <p>拓展C4D基础建模与渲染能力，能够制作产品展示场景及三维视觉元素，丰富设计表现形式。掌握After Effects动效设计，可为品牌设计提供动态logo、产品演示短片等增值服务。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 软件技能 -->
+            <div class="skills-section">
+                <h3 class="skills-category">
+                    <span class="category-number">02</span>
+                    <span class="category-text">软件掌握</span>
+                </h3>
+                <div class="software-showcase">
+                    <div class="software-card">
+                        <div class="software-header">
+                            <span class="software-name">Photoshop</span>
+                            <span class="software-level">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                        <div class="software-desc">高级修图 · 合成技术</div>
+                    </div>
+                    <div class="software-card">
+                        <div class="software-header">
+                            <span class="software-name">Illustrator</span>
+                            <span class="software-level">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                        <div class="software-desc">矢量绘制 · 字形设计</div>
+                    </div>
+                    <div class="software-card">
+                        <div class="software-header">
+                            <span class="software-name">InDesign</span>
+                            <span class="software-level">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+                        <div class="software-desc">文档排版 · 样式管理</div>
+                    </div>
+                    <div class="software-card">
+                        <div class="software-header">
+                            <span class="software-name">After Effects</span>
+                            <span class="software-level">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                        <div class="software-desc">动效设计 · 视频合成</div>
+                    </div>
+                    <div class="software-card">
+                        <div class="software-header">
+                            <span class="software-name">Figma</span>
+                            <span class="software-level">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                        <div class="software-desc">UI设计 · 原型制作</div>
+                    </div>
+                    <div class="software-card">
+                        <div class="software-header">
+                            <span class="software-name">Cinema 4D</span>
+                            <span class="software-level">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                        <div class="software-desc">三维建模 · 渲染输出</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 复合能力 -->
+            <div class="skills-section">
+                <h3 class="skills-category">
+                    <span class="category-number">03</span>
+                    <span class="category-text">复合能力</span>
+                </h3>
+                <div class="compound-grid">
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>商业平面设计与三维建模</h4>
+                        <p>理解从项目需求分析、创意构思、版式草图到软件实现及输出流程；基本掌握平面图像处理和简单三维模型构建技能。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>数字影像拍摄与后期处理</h4>
+                        <p>熟悉拍摄前期准备（构图、光线布置）、拍摄执行、图片筛选与后期调色修图流程；能够掌握Photoshop等软件进行图像调整与合成。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>客户需求对接沟通能力</h4>
+                        <p>了解并熟悉客户需求收集、提案沟通与反馈确认的流程，能够准确记录需求变更并进行基础方案调整。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>创意文案与营销策划</h4>
+                        <p>熟悉从市场调研、目标受众分析、文案提炼到多平台文案撰写和视觉配合的策划流程；具备基本文字表达能力。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>短片叙事制作能力</h4>
+                        <p>了解短片制作流程：从剧本策划、分镜头设计到拍摄、剪辑、配乐与色调处理；基本掌握镜头切换、节奏控制与剪辑软件的使用。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>跨职能沟通与项目协作</h4>
+                        <p>了解设计项目从启动、执行到交付的整体流程与各环节协作方式；能够与文案、摄影、市场等角色配合。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>基础文案创意与视觉配合</h4>
+                        <p>熟悉创意构思流程：从头脑风暴、关键词提炼到文案草稿与视觉样式初稿匹配；具备基本的文本组织与视觉配合作业能力。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>行业趋势观察与基础商业敏感度</h4>
+                        <p>熟悉视觉设计、自媒体及品牌领域的基础行业趋势与技术，如AIGC、短视频发展路径、材料与拍摄风格方向。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>自媒体账号运营能力</h4>
+                        <p>了解自媒体内容规划、排期发布、流量监测与互动维护的运营流程；能使用平台基础工具发布图文或短视频内容。</p>
+                    </div>
+                    <div class="compound-card">
+                        <div class="compound-icon">●</div>
+                        <h4>视觉用户体验导向设计</h4>
+                        <p>理解视觉设计与用户体验流程：从用户需求分析、视觉构成规划到界面可用性测试；基本掌握视觉层级、色彩对比、排版布局等UX原理。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section class="portfolio" id="portfolio">
+        <div class="portfolio-container">
+            <div class="portfolio-header">
+                <div class="section-label">精选作品</div>
+                <h2 class="section-title">创意无限 · 设计无界</h2>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-project="hengchuang">
+                    <img src="public/恒创广告品牌视觉识别（VI）系统建设项目/恒创广告-VI设计项目主图.png" alt="恒创广告VI设计">
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">恒创广告VI系统</h3>
+                        <p class="portfolio-category">品牌视觉识别</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-project="orange">
+                    <img src="public/寻乌县卢屋村赣南脐橙包装设计项目/赣南脐橙包装设计总图.jpg" alt="赣南脐橙包装设计">
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">赣南脐橙包装设计</h3>
+                        <p class="portfolio-category">包装设计</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-project="space">
+                    <img src="public/太空探索主题小游戏新媒体运营方案/太空探索主题小游戏新媒体运营方案-全图.jpeg" alt="太空探索游戏运营">
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">太空探索游戏运营</h3>
+                        <p class="portfolio-category">新媒体设计</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-project="beauty">
+                    <img src="public/某美妆品牌超级品牌日电商直播项目/某美妆品牌超级品牌日电商直播项目-主图.jpeg" alt="美妆品牌直播项目">
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">美妆品牌直播视觉</h3>
+                        <p class="portfolio-category">电商设计</p>
+                    </div>
+                </div>
+                <div class="portfolio-item portfolio-video" data-video="https://ddcz-1315997005.cos.ap-nanjing.myqcloud.com/static/video/teach_sys/project/recuVaWcRLjh1R.mp4">
+                    <img src="public/某市%E2%80%9C四美%E2%80%9D个人宣传片项目/港口航拍主图.jpg" alt="四美宣传片项目">
+                    <div class="play-button">
+                        <i data-lucide="play"></i>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">"四美"宣传片</h3>
+                        <p class="portfolio-category">影视美术</p>
+                    </div>
+                </div>
+                <!-- 装饰元素 -->
+                <div class="portfolio-decoration">
+                    <div class="decoration-grid">
+                        <div class="decoration-line-1"></div>
+                        <div class="decoration-line-2"></div>
+                        <div class="decoration-circle"></div>
+                        <div class="decoration-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 联系 -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <div class="contact-layout">
+                <!-- 左侧信息区 -->
+                <div class="contact-left">
+                    <h2 class="contact-title">
+                        <span class="contact-title-main">联系我</span>
+                        <span class="contact-title-en">Contact Me</span>
+                    </h2>
+                    <div class="contact-description">
+                        <span>热爱视觉创意设计</span>
+                        <span>专注品牌价值提升</span>
+                        <span>创造独特视觉语言</span>
+                    </div>
+                </div>
+                
+                <!-- 右侧联系信息 -->
+                <div class="contact-right">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <div class="info-label">Name</div>
+                            <div class="info-value">李沐阳</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-label">Mobile</div>
+                            <div class="info-value">175xxxx5980</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-label">Email</div>
+                            <div class="info-value">29xxxx8825@qq.com</div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-label">Location</div>
+                            <div class="info-value">苏州市吴江区</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 社交媒体 -->
+                    <div class="contact-social">
+                        <a href="#" class="social-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p class="footer-text">© 2024 视觉设计师作品集. 保留所有权利.</p>
+    </footer>
+
+    <!-- 视频弹窗 -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-container">
+            <button class="close-video" id="closeVideo">
+                <i data-lucide="x"></i>
+            </button>
+            <video id="modalVideo" controls></video>
+        </div>
+    </div>
+
+    <!-- 项目详情弹窗 -->
+    <div class="project-modal" id="projectModal">
+        <div class="project-container">
+            <div class="project-header">
+                <h2 class="project-title-modal" id="projectTitle"></h2>
+                <button class="close-project" id="closeProject">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="project-nav" id="projectNav"></div>
+            <div class="project-content" id="projectContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化 Lucide 图标
+        lucide.createIcons();
+
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有区域
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(section);
+        });
+
+        // 表单提交
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('感谢您的留言！我会尽快与您联系。');
+            });
+        }
+
+        // 视频播放功能
+        const videoModal = document.getElementById('videoModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const closeVideoBtn = document.getElementById('closeVideo');
+        const portfolioVideo = document.querySelector('.portfolio-video');
+
+        // 点击播放视频
+        if (portfolioVideo) {
+            portfolioVideo.addEventListener('click', function() {
+                const videoUrl = this.dataset.video;
+                modalVideo.src = videoUrl;
+                videoModal.classList.add('active');
+                modalVideo.play();
+            });
+        }
+
+        // 关闭视频弹窗
+        function closeVideoModal() {
+            if (videoModal) {
+                videoModal.classList.remove('active');
+            }
+            if (modalVideo) {
+                modalVideo.pause();
+                modalVideo.src = '';
+            }
+        }
+
+        if (closeVideoBtn) {
+            closeVideoBtn.addEventListener('click', closeVideoModal);
+        }
+
+        // 点击背景关闭视频
+        if (videoModal) {
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === videoModal) {
+                    closeVideoModal();
+                }
+            });
+        }
+
+        // ESC键关闭视频
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeVideoModal();
+            }
+            if (e.key === 'Escape' && projectModal.classList.contains('active')) {
+                closeProjectModal();
+            }
+        });
+
+        // 项目详情数据
+        const projectsData = {
+            orange: {
+                title: '赣南脐橙包装设计项目',
+                processes: [
+                    {
+                        name: '设计调研与定位',
+                        image: 'public/寻乌县卢屋村赣南脐橙包装设计项目/流程一：设计调研与定位.jpg',
+                        overview: '在项目初期，协助完成市场调研与文化定位，分析现有包装的不足，并明确"地域文化+卡通IP+现代审美"的设计方向。',
+                        work: [
+                            '行业调研与资料收集：整理电商平台与商超的脐橙包装样式，归纳市场常见元素与不足',
+                            '竞品分析辅助：协助制作竞品包装对比表，标注文化元素和年轻化程度的差异',
+                            '消费者需求整理：配合问卷调查和访谈，汇总年轻消费者对包装审美与文化感的偏好',
+                            '设计方向确认：参与团队讨论，将客家文化与赣南特色转化为设计定位参考资料',
+                            '项目目标归纳：协助撰写功能性、文化性与传播性三位一体的设计目标说明文档'
+                        ]
+                    },
+                    {
+                        name: '制定色彩与元素提取方案',
+                        image: 'public/寻乌县卢屋村赣南脐橙包装设计项目/流程二：制定色彩与元素提取方案.jpg',
+                        overview: '在设计阶段，协助完成主色与辅助色的搭配选择，提炼兔耳、橙瓣、水滴等符号元素，确保包装兼具美观与文化识别度。',
+                        work: [
+                            '主色与辅助色方案整理：参与制定以橙色为主、绿色和黄色为辅的配色方案，确保色彩表达统一',
+                            '色彩心理效应调研：收集橙色、绿色、黄色对消费者的视觉感知研究资料，支持团队配色决策',
+                            '元素符号提炼：参与设计兔耳、橙瓣、水滴等符号图形，整理为元素库供团队调用',
+                            '节庆元素融入：协助完成兔年文化与客家传统元素的结合，保证包装具备节日氛围',
+                            '延展应用支持：将提炼出的符号与色彩，制作应用样稿（如手提袋、广告画面），验证统一性'
+                        ]
+                    },
+                    {
+                        name: '设计Logo与IP形象',
+                        image: 'public/寻乌县卢屋村赣南脐橙包装设计项目/流程三：设计Logo与IP形象 .jpg',
+                        overview: '在Logo与IP环节，协助完成脐橙轮廓与兔耳元素的融合设计，并参与小兔子IP的形象细化，增强趣味性与文化识别度。',
+                        work: [
+                            'Logo草图绘制：协助完成基于脐橙形态的初版草图绘制，并标注兔耳与绿叶位置',
+                            '元素融合测试：参与将虎头帽、兔耳与水滴符号融入Logo，整理测试版本供团队评审',
+                            '色彩统一支持：检查Logo与整体包装的色彩搭配是否协调，并提出调整建议',
+                            'IP形象辅助创作：参与设计小兔子表情与动作草图，提升亲和力与传播性',
+                            '延展性测试：协助制作Logo与IP在礼盒、标签、宣传物料上的应用效果图'
+                        ]
+                    },
+                    {
+                        name: '规范包装结构与尺寸设计',
+                        image: 'public/寻乌县卢屋村赣南脐橙包装设计项目/流程四：规范包装结构与尺寸设计.jpg',
+                        overview: '在包装结构设计环节，协助确定三层E瓦楞纸材质，设计12枚脐橙标准尺寸盒型，兼顾承重、防护与便携需求。',
+                        work: [
+                            '尺寸方案绘制：协助绘制375×115×230mm尺寸的内盒图纸，确保符合容纳与防护要求',
+                            '材质样本收集：参与整理不同瓦楞纸材质参数，辅助团队选择E瓦楞纸方案',
+                            '手提设计测试：协助设计手提结构样稿，进行承重测试，验证携带便捷性',
+                            '工艺线优化：配合绘制折叠线与切割线草稿，简化生产工艺并提升效率',
+                            '展示效果确认：协助检查包装在货架与陈列中的展示效果，收集反馈并调整'
+                        ]
+                    },
+                    {
+                        name: '实施视觉呈现与效果展示',
+                        image: 'public/寻乌县卢屋村赣南脐橙包装设计项目/流程五：实施视觉呈现与效果展示.jpg',
+                        overview: '在视觉展示阶段，协助完成三维建模、场景渲染与实物打样拍摄，验证包装在电商与线下场景下的展示效果。',
+                        work: [
+                            '3D建模辅助：参与制作包装的三维建模基础文件，用于效果图生成',
+                            '场景渲染支持：协助渲染包装在商超、礼品和家庭场景中的应用效果',
+                            '实物样机制作：参与样机制作过程，负责收集并整理生产参数',
+                            '拍摄与布景协助：在实物拍摄环节，协助布景与灯光设置，提升成片效果',
+                            '宣传海报设计支持：整理海报排版与元素素材，辅助制作节庆氛围宣传图'
+                        ]
+                    }
+                ]
+            },
+            hengchuang: {
+                title: '恒创广告VI系统建设项目',
+                processes: [
+                    {
+                        name: '品牌调研与视觉定位',
+                        image: 'public/恒创广告品牌视觉识别（VI）系统建设项目/流程一：品牌调研与视觉定位.jpg',
+                        overview: '在项目初期，协助团队完成行业样本收集、竞品调研与受众分析，明确视觉风格和品牌差异化方向。',
+                        work: [
+                            '行业与竞品样本库整理：协助收集国内外广告企业VI案例，分类标注差异化标签，便于团队快速比对',
+                            '受众需求分析：协助梳理广告主、渠道商和公众三类受众的识别诉求，输出信息优先级表',
+                            '品牌关键词提炼支持：参与收集"创新、务实、专业"等关键词素材，为视觉定位提供依据',
+                            '视觉风格草案：协助整理"现代简洁+科技感蓝"风格样稿，供团队评审',
+                            '场景优先级表：协助输出远距识别与小屏易读的应用场景表，确保跨触点一致性'
+                        ]
+                    },
+                    {
+                        name: 'LOGO设计与规范',
+                        image: 'public/恒创广告品牌视觉识别（VI）系统建设项目/流程二：LOGO设计与规范.jpg',
+                        overview: '在LOGO设计环节，协助完成主辅LOGO绘制、比例规范及错误示例整理，确保LOGO在不同场景下具备高识别度。',
+                        work: [
+                            'LOGO版本整理：协助绘制主LOGO与横竖版、黑白、反白等辅助版本',
+                            '安全区与最小尺寸标注：参与绘制LOGO安全区与临界尺寸规范图',
+                            '禁用规范案例收集：整理LOGO误用样例（拉伸、倾斜、低对比），编入手册',
+                            'LOGO组合规范：协助绘制LOGO与口号、网址的相对位置网格图',
+                            '出稿文件归档：输出AI、PNG等格式文件并建立清单，减少跨团队交付误差'
+                        ]
+                    },
+                    {
+                        name: '标准色彩与字体体系',
+                        image: 'public/恒创广告品牌视觉识别（VI）系统建设项目/流程三：标准色彩与字体体系.jpg',
+                        overview: '在色彩与字体体系构建阶段，协助整理RGB、CMYK、Pantone对应表，并规范中英文字体层级，保证跨介质一致性。',
+                        work: [
+                            '色彩转换表：协助制作RGB/HEX、CMYK、Pantone对应表，用于不同介质',
+                            '无障碍对比度校验：参与检查正文与背景的对比度是否达到4.5:1标准',
+                            '字体族与字号规范：协助整理中文思源黑体、英文Helvetica Neue的层级样式表',
+                            '色彩层级表：整理主色、强调色、功能色及灰阶配色的应用场景',
+                            '打样与容差记录：参与收集不同纸张、工艺的打样数据，形成色差对比表'
+                        ]
+                    },
+                    {
+                        name: '办公物料与传播载体设计',
+                        image: 'public/恒创广告品牌视觉识别（VI）系统建设项目/流程四：办公物料与传播载体设计.jpg',
+                        overview: '在办公物料和传播载体环节，协助设计名片、信纸、工牌、PPT模板等，确保高频触点的视觉一致性。',
+                        work: [
+                            '名片与信纸模板：协助设计中英双语名片与信纸模板，统一字体与二维码规范',
+                            '工牌设计：参与绘制岗位/部门配色工牌，并测试对比度达标情况',
+                            'PPT与文档模板：协助整理标题、正文、引用等排版样式，建立预置版式',
+                            '数字素材规范：整理公众号封面、短视频片头片尾的LOGO安全区规范',
+                            '资产包归档：协助整理设计资产包并编制命名规则与使用说明'
+                        ]
+                    },
+                    {
+                        name: '广告与媒介应用规范',
+                        image: 'public/恒创广告品牌视觉识别（VI）系统建设项目/流程五：广告与媒介应用规范.jpg',
+                        overview: '针对户外、展会、车体广告及数字投放，协助制定字号、对比度与色彩模式规范，确保跨媒介还原度。',
+                        work: [
+                            '户外与展会规范：协助绘制大字号与高对比示例图，确保远距识别',
+                            '车体广告辅助：整理车身转角与拼缝避让规范，协助绘制示意图',
+                            '印刷工艺整理：协助标注CMYK与Pantone应用场景，形成出稿工艺表',
+                            '数字端规范：整理横竖屏比例与裁切优先级规则，确保多平台适配',
+                            '交付文件清单：协助制作交付清单，打包AI、PDF、PNG等文件，减少返工'
+                        ]
+                    },
+                    {
+                        name: '品牌视觉传播执行',
+                        image: 'public/恒创广告品牌视觉识别（VI）系统建设项目/流程六：品牌视觉传播执行.jpg',
+                        overview: '在项目收尾阶段，协助完成VI手册发布、培训、质检与复盘，确保视觉体系的落地与持续优化。',
+                        work: [
+                            '手册发布支持：协助整理《恒创广告VI设计手册》的图文内容并检查排版',
+                            '内部培训资料：参与制作培训PPT与操作指引，协助开展设计与市场团队培训',
+                            '质检记录：协助按清单检查LOGO、色彩和字体执行情况，并整理偏差报告',
+                            '数据收集与反馈：参与收集线上线下触点反馈，汇总曝光量与一致性指标',
+                            '持续优化资料：协助整理高频错误案例，编入"反例库"供后续修订参考'
+                        ]
+                    }
+                ]
+            },
+            beauty: {
+                title: '美妆品牌超级品牌日电商直播项目',
+                processes: [
+                    {
+                        name: '构建选品与供应链体系',
+                        image: 'public/某美妆品牌超级品牌日电商直播项目/流程一：构建选品与供应链体系.jpeg',
+                        overview: '在直播筹备环节中，参与产品矩阵搭建与供应链对接，围绕爆款、套装和引流款进行选品配置，并协助落实库存安全线与物流保障机制。',
+                        work: [
+                            '爆款选品执行：协助整理产品卖点资料，重点突出爆款蜜粉的限定外壳价值，支持主播讲解时的差异化塑造',
+                            '组合套装设计：配合策划团队完成套装定价与组合逻辑，验证用户需求并提升整体客单值',
+                            '库存与物流跟进：负责库存监控表格记录，追踪备货数量与安全线，支持"极速达"模式保障履约'
+                        ]
+                    },
+                    {
+                        name: '制定直播团队配置方案',
+                        image: 'public/某美妆品牌超级品牌日电商直播项目/流程二：制定直播团队配置方案.jpeg',
+                        overview: '在团队搭建环节中，协助分工协调与流程设计，确保主播、助理、运营及场控等岗位衔接流畅，并参与执行团队工作表与直播任务分配。',
+                        work: [
+                            '主播与助理配合：参与制定主副主播及助理分工表，保证讲解与互动环节的专业性与连贯性',
+                            '运营数据支持：在运营监控环节协助整理GMV、在线人数曲线，为及时触发秒杀与福袋活动提供数据依据',
+                            '场控执行配合：支持灯光、画面切换等现场工作，确保产品展示效果与直播画面稳定'
+                        ]
+                    },
+                    {
+                        name: '建设直播场景与布置方案',
+                        image: 'public/某美妆品牌超级品牌日电商直播项目/流程三：建设直播场景与布置方案.jpeg',
+                        overview: '在场景布置阶段，协助完成直播背景、灯光与设备调试，参与演示区搭建与细节优化，确保整体氛围契合品牌调性并满足直播需求。',
+                        work: [
+                            '场景布置支持：协助完成东方化妆间主题的实景与虚拟背景组合，保证直播风格统一',
+                            '设备调试协作：参与双机位摄影和灯光布置检查，确保画面清晰、肤质与产品质感均能突出',
+                            '演示区搭建：配合完成手臂试色与模特展示分区，提升用户对上妆效果的直观理解'
+                        ]
+                    },
+                    {
+                        name: '编制直播脚本与执行蓝图',
+                        image: 'public/某美妆品牌超级品牌日电商直播项目/流程四：编制直播脚本与执行蓝图.jpeg',
+                        overview: '在脚本设计阶段，参与整理话术节点、互动环节与时间规划，协助团队形成模块化脚本，确保直播节奏与互动逻辑清晰。',
+                        work: [
+                            '脚本规划参与：协助将直播内容分为预热、产品讲解、互动逼单与返场四大模块，支持节奏管控',
+                            '话术与互动整理：参与梳理核心卖点话术，并嵌入投票、抽奖等互动环节，提升用户参与感',
+                            '节奏监控支持：在直播执行过程中，根据脚本监控时间节点，提示主播与助理完成节奏衔接'
+                        ]
+                    },
+                    {
+                        name: '实施直播与互动引导',
+                        image: 'public/某美妆品牌超级品牌日电商直播项目/流程五：实施直播与互动引导.jpg',
+                        overview: '在直播执行阶段，参与线上互动与观众维护，配合完成福袋、弹幕抽奖与秒杀等机制的执行，实时跟进数据与用户反馈，保障直播间氛围活跃与转化提升。',
+                        work: [
+                            '互动玩法执行：协助福袋、抽奖与投票功能上线，负责部分用户互动回复，增强观众参与度',
+                            '数据实时跟踪：参与记录观看人数、转化率波动，并及时向运营反馈用于触发补救措施',
+                            '主播辅助支持：协助分担主播互动压力，整理高频问题并集中反馈，确保讲解顺畅'
+                        ]
+                    },
+                    {
+                        name: '总结复盘与后续维护',
+                        image: 'public/某美妆品牌超级品牌日电商直播项目/流程六：总结复盘与后续维护.jpeg',
+                        overview: '在直播收尾阶段，参与数据复盘与报告整理，配合完成高光内容二次传播与用户社群维护，支持品牌后续直播优化与粉丝沉淀。',
+                        work: [
+                            '数据复盘整理：协助统计GMV、转化率与用户互动数据，整理报表用于总结分析',
+                            '内容二次传播：参与直播高光片段整理与初步剪辑，为二次投放提供素材',
+                            '粉丝维护支持：协助标记高互动用户并整理进社群名单，推动用户转化为长期粉丝'
+                        ]
+                    }
+                ]
+            },
+            space: {
+                title: '太空探索主题小游戏运营方案',
+                processes: [
+                    {
+                        name: '目标用户画像与群体定位',
+                        image: 'public/太空探索主题小游戏新媒体运营方案/流程一：目标用户画像与群体定位.jpeg',
+                        overview: '在项目初期参与用户调研与数据分析，协助团队梳理核心目标人群画像，输出年龄、兴趣与付费行为等用户特征报告。',
+                        work: [
+                            '用户画像整理：辅助使用调研问卷与数据工具分析用户兴趣和消费习惯，形成完整的用户画像模型',
+                            '平台受众对比：参与整理抖音、小红书与视频号的用户差异，为不同平台制定定向内容策略提供参考',
+                            '生命周期分析：协助总结小游戏生命周期问题，提出通过活动和社群延长用户粘性的运营思路'
+                        ]
+                    },
+                    {
+                        name: '内容创作与视觉矩阵设计',
+                        image: 'public/太空探索主题小游戏新媒体运营方案/流程二：内容创作与视觉矩阵设计.jpeg',
+                        overview: '在内容制作环节中，配合团队策划短视频、漫画与直播脚本，参与热点话题活动与视觉素材的整理，确保内容在风格和主题上的一致性。',
+                        work: [
+                            '内容日历协助：整理节庆与热点节点，参与制定月度内容发布计划，保证内容输出稳定',
+                            '视频与图文辅助：协助剪辑游戏亮点视频并完成漫画和攻略内容的排版，增强用户吸引力',
+                            '视觉统一整理：参与审核不同平台的视觉素材，确保色彩与风格保持统一的科幻调性'
+                        ]
+                    },
+                    {
+                        name: '多渠道推广与流量获取',
+                        image: 'public/太空探索主题小游戏新媒体运营方案/流程三：多渠道推广与流量获取.png',
+                        overview: '在推广阶段协助渠道分工与达人对接，整理广告投放数据与活动传播效果，支持项目达成冷启动和长线增长的目标。',
+                        work: [
+                            '渠道素材准备：负责整理抖音与视频号的推广文案和素材，配合平台需求进行优化',
+                            '达人合作支持：参与中腰部达人联络与沟通，协助整理试玩反馈与内容传播数据',
+                            '活动推广执行：协助"联盟争霸赛"直播活动执行，整理用户参与反馈和传播数据'
+                        ]
+                    },
+                    {
+                        name: '社群建设与用户沉淀',
+                        image: 'public/太空探索主题小游戏新媒体运营方案/流程四：社群建设与用户沉淀.jpeg',
+                        overview: '在社群搭建阶段，协助微信群与QQ群的运营支持，负责基础活跃机制的执行与玩家反馈收集，推动用户长期留存与社区互动。',
+                        work: [
+                            '社群活跃运营：协助发布每日签到任务与活动信息，提升群成员活跃度',
+                            'KOC培养辅助：参与整理活跃玩家名单，支持团队完成核心用户激励计划',
+                            '玩家反馈整理：收集用户在群内的意见和问题，形成记录并提交团队进行优化'
+                        ]
+                    },
+                    {
+                        name: '数据分析与A/B测试优化',
+                        image: 'public/太空探索主题小游戏新媒体运营方案/流程五：数据分析与AB测试优化.png',
+                        overview: '在数据监测环节，协助团队收集并整理运营指标，配合完成基础报表与对比分析，为内容优化与广告投放策略提供参考。',
+                        work: [
+                            '数据报表整理：每日收集DAU、留存率与广告CTR等数据，整理为周报供团队复盘',
+                            'A/B测试协助：参与广告位与新手引导测试的数据收集，辅助分析不同方案的效果',
+                            '内容效果对比：整理高互动内容与低转化内容差异，为后续优化策略提供支撑'
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // 项目详情弹窗相关代码 - 等待DOM加载完成
+        window.addEventListener('load', function() {
+            const projectModal = document.getElementById('projectModal');
+            const projectTitle = document.getElementById('projectTitle');
+            const projectNav = document.getElementById('projectNav');
+            const projectContent = document.getElementById('projectContent');
+            const closeProjectBtn = document.getElementById('closeProject');
+
+            // 为项目卡片添加点击事件
+            document.querySelectorAll('.portfolio-item[data-project]').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const projectKey = this.dataset.project;
+                    console.log('点击项目：', projectKey);
+                    if (projectKey && projectsData[projectKey]) {
+                        openProjectModal(projectsData[projectKey]);
+                    } else {
+                        console.error('项目数据未找到：', projectKey);
+                    }
+                });
+            });
+            console.log('DOM加载完成 - 找到项目卡片数量：', document.querySelectorAll('.portfolio-item[data-project]').length);
+            console.log('项目数据已加载：', Object.keys(projectsData));
+
+            // 打开项目详情弹窗
+            function openProjectModal(project) {
+            projectTitle.textContent = project.title;
+            
+            // 清空并创建导航
+            projectNav.innerHTML = '';
+            projectContent.innerHTML = '';
+            
+            project.processes.forEach((process, index) => {
+                // 创建导航项
+                const navItem = document.createElement('button');
+                navItem.className = 'nav-item' + (index === 0 ? ' active' : '');
+                navItem.textContent = process.name;
+                navItem.dataset.index = index;
+                projectNav.appendChild(navItem);
+                
+                // 创建内容区
+                const section = document.createElement('div');
+                section.className = 'process-section' + (index === 0 ? ' active' : '');
+                section.dataset.index = index;
+                section.innerHTML = `
+                    <div class="process-image-container">
+                        <img src="${process.image}" alt="${process.name}" class="process-image">
+                    </div>
+                    <div class="process-details">
+                        <div class="process-overview">
+                            <h3>流程概述</h3>
+                            <p>${process.overview}</p>
+                        </div>
+                        <div class="process-work">
+                            <h3>工作内容</h3>
+                            <ul>
+                                ${process.work.map(item => {
+                                    const colonIndex = item.indexOf('：');
+                                    if (colonIndex > -1) {
+                                        const title = item.substring(0, colonIndex);
+                                        const content = item.substring(colonIndex);
+                                        return `<li><strong>${title}</strong>${content}</li>`;
+                                    }
+                                    return `<li>${item}</li>`;
+                                }).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                projectContent.appendChild(section);
+            });
+            
+            // 导航切换事件
+            projectNav.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.addEventListener('click', function() {
+                    const index = this.dataset.index;
+                    
+                    // 更新导航状态
+                    projectNav.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // 更新内容显示
+                    projectContent.querySelectorAll('.process-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    projectContent.querySelector(`.process-section[data-index="${index}"]`).classList.add('active');
+                });
+            });
+            
+            projectModal.classList.add('active');
+            
+            // 刷新Lucide图标
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        }
+
+            // 关闭项目详情弹窗
+            function closeProjectModal() {
+                projectModal.classList.remove('active');
+            }
+
+            if (closeProjectBtn) {
+                closeProjectBtn.addEventListener('click', closeProjectModal);
+            }
+
+            // 点击背景关闭
+            if (projectModal) {
+                projectModal.addEventListener('click', function(e) {
+                    if (e.target === projectModal) {
+                        closeProjectModal();
+                    }
+                });
+            }
+        }); // 结束 window.addEventListener('load')
+
+        // 重新初始化 Lucide 图标（确保新添加的图标能显示）
+        setTimeout(() => {
+            lucide.createIcons();
+        }, 100);
+
+        // 创建粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机位置
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // 随机动画延迟
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                
+                // 随机大小
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // 随机动画持续时间
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 页面加载完成后创建粒子
+        createParticles();
+
+        // 鼠标移动视差效果
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth - 0.5;
+            const y = e.clientY / window.innerHeight - 0.5;
+            
+            const heroGlows = document.querySelectorAll('.hero-glow');
+            heroGlows.forEach((glow, index) => {
+                const speed = (index + 1) * 20;
+                glow.style.transform = `translate(${x * speed}px, ${y * speed}px) scale(1)`;
+            });
+            
+            const shapes = document.querySelectorAll('.decoration-shape');
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 10;
+                shape.style.transform = `translate(${x * speed}px, ${y * speed}px) ${shape.style.transform}`;
+            });
+        });
+    </script>
+</body>
+</html>
